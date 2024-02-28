@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data JPA repository for the Instana entity.
  */
-@SuppressWarnings("unused")
 @Repository
 public interface InstanaRepository extends JpaRepository<Instana, Long> {
     Instana findTopByOrderByIdDesc();
