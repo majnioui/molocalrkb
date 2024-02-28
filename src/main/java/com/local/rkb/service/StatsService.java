@@ -172,4 +172,14 @@ public class StatsService {
         String endpoint = "/api/events/agent-monitoring-events";
         return makeGetRequest(endpoint);
     }
+
+    public String getInstanaVersion() {
+        String endpoint = "/api/instana/version";
+        return makeGetRequest(endpoint);
+    }
+
+    public String getInstanaHealth() {
+        String endpoint = "/api/instana/health";
+        return makeGetRequest(endpoint);
+    }
 }

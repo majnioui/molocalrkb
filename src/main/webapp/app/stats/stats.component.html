@@ -1,8 +1,29 @@
+<!-- Version & Health Table -->
+<p class="section-title">Instana Health and Version</p>
+<table *ngIf="instanaVersion || instanaHealth" class="table">
+  <tbody>
+    <!-- Instana Version -->
+    <tr *ngIf="instanaVersion">
+      <td>Version</td>
+      <td>{{ instanaVersion.branch }}</td>
+    </tr>
+    <!-- Instana Health -->
+    <tr *ngIf="instanaHealth">
+      <td>Health Status</td>
+      <td>{{ getHealthStatusEmoji(instanaHealth.health) }}</td>
+    </tr>
+    <tr *ngIf="instanaHealth && instanaHealth.messages">
+      <td>Health Messages</td>
+      <td>{{ instanaHealth.messages }}</td>
+    </tr>
+  </tbody>
+</table>
+
 <!-- Websites Section -->
 <p class="section-title">Websites</p>
-<div *ngIf="configs">
-  <div *ngFor="let config of configs">
-    <p class="field">{{ config.appName }}</p>
+<div *ngIf="websites">
+  <div *ngFor="let website of websites">
+    <p class="field">{{ website.appName }}</p>
   </div>
 </div>
 

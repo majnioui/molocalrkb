@@ -7,7 +7,7 @@ import { StatsService } from '../services/stats.service';
   styleUrls: ['./stats.component.scss'],
 })
 export class StatsComponent implements OnInit {
-  configs: any;
+  websites: any;
   hostAgentDetails: any = {
     data: {
       memory: {},
@@ -17,6 +17,8 @@ export class StatsComponent implements OnInit {
   infrastructureTopology: any;
   eventsData: any[] = [];
   agentRelatedIssues: any[] = [];
+  instanaVersion: any;
+  instanaHealth: any;
 
   constructor(
     private statsService: StatsService,
@@ -25,7 +27,7 @@ export class StatsComponent implements OnInit {
 
   ngOnInit() {
     this.statsService.getWebsiteMonitoringConfig().subscribe(data => {
-      this.configs = data;
+      this.websites = data;
     });
     this.statsService.getHostAgentDetails().subscribe(response => {
       if (response && response.items && response.items.length > 0) {
@@ -80,5 +82,27 @@ export class StatsComponent implements OnInit {
         console.error('Failed to agent related issues:', error);
       },
     );
+
+    // Instana health and version
+    this.statsService.getInstanaVersion().subscribe(version => {
+      this.instanaVersion = version;
+    });
+    this.statsService.getInstanaHealth().subscribe(health => {
+      this.instanaHealth = health;
+    });
+  }
+
+  // get health status as emojis
+  getHealthStatusEmoji(healthStatus: string): string {
+    switch (healthStatus) {
+      case 'GREEN':
+        return '🟢';
+      case 'YELLOW':
+        return '🟡';
+      case 'RED':
+        return '🔴';
+      default:
+        return healthStatus;
+    }
   }
 }
