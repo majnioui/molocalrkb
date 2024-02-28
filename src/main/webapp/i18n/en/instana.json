@@ -1,0 +1,25 @@
+{
+  "moLocalrKbApp": {
+    "instana": {
+      "home": {
+        "title": "Instanas",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Instana",
+        "createOrEditLabel": "Create or edit a Instana",
+        "notFound": "No Instanas found"
+      },
+      "created": "A new Instana is created with identifier {{ param }}",
+      "updated": "A Instana is updated with identifier {{ param }}",
+      "deleted": "A Instana is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Instana {{ id }}?"
+      },
+      "detail": {
+        "title": "Instana"
+      },
+      "id": "ID",
+      "apitoken": "Apitoken",
+      "baseurl": "Baseurl"
+    }
+  }
+}

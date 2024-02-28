@@ -1,0 +1,18 @@
+{
+  "applications": ["MoLocalrKb"],
+  "changelogDate": "20240228103705",
+  "entityTableName": "instana",
+  "fields": [
+    {
+      "fieldName": "apitoken",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "baseurl",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Instana",
+  "relationships": [],
+  "searchEngine": "no"
+}

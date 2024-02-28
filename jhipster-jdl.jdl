@@ -1,0 +1,17 @@
+application {
+  config {
+    baseName MoLocalrKb
+    applicationType monolith
+    packageName com.local.rkb
+    authenticationType jwt
+    prodDatabaseType postgresql
+    clientFramework angular
+  }
+  entities *
+}
+
+
+entity Instana {
+	apitoken String
+	baseurl String
+}
