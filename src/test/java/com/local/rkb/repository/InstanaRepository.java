@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data JPA repository for the InstanaApiToken entity.
+ * Spring Data JPA repository for the Instana entity.
  */
 @SuppressWarnings("unused")
 @Repository
