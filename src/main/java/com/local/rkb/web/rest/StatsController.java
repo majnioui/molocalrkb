@@ -12,7 +12,7 @@ public class StatsController {
     @Autowired
     private StatsService statsService;
 
-    @GetMapping("/api/stats")
+    @GetMapping("/api/all-websites")
     public String getWebsiteMonitoringConfig() {
         return statsService.getWebsiteMonitoringConfig();
     }
@@ -40,5 +40,15 @@ public class StatsController {
     @GetMapping("/api/agent-related-issues")
     public String getAgentRelaltedIssues() throws JSONException {
         return statsService.getAgentRelaltedIssues();
+    }
+
+    @GetMapping("/api/instana-version")
+    public String getInstanaVersion() throws JSONException {
+        return statsService.getInstanaVersion();
+    }
+
+    @GetMapping("/api/instana-health")
+    public String getInstanaHealth() throws JSONException {
+        return statsService.getInstanaHealth();
     }
 }

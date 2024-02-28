@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class StatsService {
-  private resourceUrl = '/api/stats';
+  private resourceUrl = '/api/all-websites';
 
   constructor(private http: HttpClient) {}
 
@@ -29,5 +29,12 @@ export class StatsService {
   }
   getAgentRelaltedIssues(): Observable<any> {
     return this.http.get('/api/agent-related-issues');
+  }
+
+  getInstanaVersion(): Observable<any> {
+    return this.http.get('/api/instana-version');
+  }
+  getInstanaHealth(): Observable<any> {
+    return this.http.get('/api/instana-health');
   }
 }
