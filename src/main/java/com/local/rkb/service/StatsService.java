@@ -167,4 +167,9 @@ public class StatsService {
         String endpoint = "/api/events?windowSize=86400000";
         return makeGetRequest(endpoint);
     }
+
+    public String getAgentRelaltedIssues() {
+        String endpoint = "/api/events/agent-monitoring-events";
+        return makeGetRequest(endpoint);
+    }
 }

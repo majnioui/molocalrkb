@@ -152,3 +152,37 @@
   </table>
 </div>
 <ng-template #noEvents><p>No events found.</p></ng-template>
+
+<!-- Agent Related Issues Section -->
+<p class="section-title">Agent Related Issues</p>
+<div *ngIf="agentRelatedIssues && agentRelatedIssues.length > 0; else noAgentIssues">
+  <table class="events-table">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>State</th>
+        <th>Problem</th>
+        <th>Detail</th>
+        <th>Severity</th>
+        <th>Entity Name</th>
+        <th>Entity Label</th>
+        <th>Entity Type</th>
+        <th>Fix Suggestion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let issue of agentRelatedIssues">
+        <td>{{ issue.type }}</td>
+        <td>{{ issue.state }}</td>
+        <td>{{ issue.problem }}</td>
+        <td>{{ issue.detail }}</td>
+        <td>{{ issue.severity }}</td>
+        <td>{{ issue.entityName }}</td>
+        <td>{{ issue.entityLabel }}</td>
+        <td>{{ issue.entityType }}</td>
+        <td>{{ issue.fixSuggestion }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noAgentIssues><p>No agent related issues found.</p></ng-template>

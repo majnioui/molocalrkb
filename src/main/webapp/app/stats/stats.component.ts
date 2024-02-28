@@ -16,6 +16,7 @@ export class StatsComponent implements OnInit {
   installedSoftware: any;
   infrastructureTopology: any;
   eventsData: any[] = [];
+  agentRelatedIssues: any[] = [];
 
   constructor(
     private statsService: StatsService,
@@ -66,6 +67,17 @@ export class StatsComponent implements OnInit {
       },
       error => {
         console.error('Failed to fetch all events:', error);
+      },
+    );
+
+    // Agent related issues
+    this.statsService.getAgentRelaltedIssues().subscribe(
+      agentIssues => {
+        this.agentRelatedIssues = agentIssues;
+        this.cdr.detectChanges();
+      },
+      error => {
+        console.error('Failed to agent related issues:', error);
       },
     );
   }

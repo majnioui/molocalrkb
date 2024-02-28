@@ -36,4 +36,9 @@ public class StatsController {
     public String getAllEvents() throws JSONException {
         return statsService.getAllEvents();
     }
+
+    @GetMapping("/api/agent-related-issues")
+    public String getAgentRelaltedIssues() throws JSONException {
+        return statsService.getAgentRelaltedIssues();
+    }
 }
