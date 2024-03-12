@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="agentIssues">
+      <h2 data-cy="agentIssuesDetailsHeading">
+        <span jhiTranslate="moLocalrKbApp.agentIssues.detail.title">Translation missing for moLocalrKbApp.agentIssues.detail.title</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ agentIssues.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.agentIssues.type">Type</span></dt>
+        <dd>
+          <span>{{ agentIssues.type }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.agentIssues.state">State</span></dt>
+        <dd>
+          <span>{{ agentIssues.state }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.agentIssues.problem">Problem</span></dt>
+        <dd>
+          <span>{{ agentIssues.problem }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.agentIssues.detail">Detail</span></dt>
+        <dd>
+          <span>{{ agentIssues.detail }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.agentIssues.severity">Severity</span></dt>
+        <dd>
+          <span>{{ agentIssues.severity }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.agentIssues.entityName">Entity Name</span></dt>
+        <dd>
+          <span>{{ agentIssues.entityName }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.agentIssues.entityLabel">Entity Label</span></dt>
+        <dd>
+          <span>{{ agentIssues.entityLabel }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.agentIssues.entityType">Entity Type</span></dt>
+        <dd>
+          <span>{{ agentIssues.entityType }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.agentIssues.fix">Fix</span></dt>
+        <dd>
+          <span>{{ agentIssues.fix }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/agent-issues', agentIssues.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

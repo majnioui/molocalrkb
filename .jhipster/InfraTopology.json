@@ -1,0 +1,24 @@
+{
+  "changelogDate": "20240312121128",
+  "entityTableName": "infra_topology",
+  "fields": [
+    {
+      "fieldName": "plugin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "label",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pluginId",
+      "fieldType": "String"
+    }
+  ],
+  "name": "InfraTopology",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "no"
+}

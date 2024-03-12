@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="events">
+      <h2 data-cy="eventsDetailsHeading">
+        <span jhiTranslate="moLocalrKbApp.events.detail.title">Translation missing for moLocalrKbApp.events.detail.title</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ events.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.events.type">Type</span></dt>
+        <dd>
+          <span>{{ events.type }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.events.state">State</span></dt>
+        <dd>
+          <span>{{ events.state }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.events.problem">Problem</span></dt>
+        <dd>
+          <span>{{ events.problem }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.events.detail">Detail</span></dt>
+        <dd>
+          <span>{{ events.detail }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.events.severity">Severity</span></dt>
+        <dd>
+          <span>{{ events.severity }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.events.entityName">Entity Name</span></dt>
+        <dd>
+          <span>{{ events.entityName }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.events.entityLabel">Entity Label</span></dt>
+        <dd>
+          <span>{{ events.entityLabel }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.events.entityType">Entity Type</span></dt>
+        <dd>
+          <span>{{ events.entityType }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.events.fix">Fix</span></dt>
+        <dd>
+          <span>{{ events.fix }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.events.date">Date</span></dt>
+        <dd>
+          <span>{{ events.date | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/events', events.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

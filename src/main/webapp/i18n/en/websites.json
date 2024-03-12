@@ -1,0 +1,25 @@
+{
+  "moLocalrKbApp": {
+    "websites": {
+      "home": {
+        "title": "Websites",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Websites",
+        "createOrEditLabel": "Create or edit a Websites",
+        "notFound": "No Websites found"
+      },
+      "created": "A new Websites is created with identifier {{ param }}",
+      "updated": "A Websites is updated with identifier {{ param }}",
+      "deleted": "A Websites is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Websites {{ id }}?"
+      },
+      "detail": {
+        "title": "Websites"
+      },
+      "id": "ID",
+      "website": "Website",
+      "websiteId": "Website Id"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "changelogDate": "20240312122429",
+  "entityTableName": "websites",
+  "fields": [
+    {
+      "fieldName": "website",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "websiteId",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Websites",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "no"
+}

@@ -1,0 +1,92 @@
+<div>
+  <h2 id="page-heading" data-cy="InfraTopologyHeading">
+    <span jhiTranslate="moLocalrKbApp.infraTopology.home.title">Infra Topologies</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="moLocalrKbApp.infraTopology.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-infra-topology"
+        [routerLink]="['/infra-topology/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="moLocalrKbApp.infraTopology.home.createLabel">Create a new Infra Topology</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="infraTopologies?.length === 0">
+    <span jhiTranslate="moLocalrKbApp.infraTopology.home.notFound">No Infra Topologies found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="infraTopologies && infraTopologies.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="plugin">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.infraTopology.plugin">Plugin</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="label">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.infraTopology.label">Label</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="pluginId">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.infraTopology.pluginId">Plugin Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let infraTopology of infraTopologies; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/infra-topology', infraTopology.id, 'view']">{{ infraTopology.id }}</a>
+          </td>
+          <td>{{ infraTopology.plugin }}</td>
+          <td>{{ infraTopology.label }}</td>
+          <td>{{ infraTopology.pluginId }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <a [routerLink]="['/infra-topology', infraTopology.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </a>
+
+              <a [routerLink]="['/infra-topology', infraTopology.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </a>
+
+              <button type="submit" (click)="delete(infraTopology)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

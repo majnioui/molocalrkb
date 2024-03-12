@@ -1,0 +1,32 @@
+{
+  "moLocalrKbApp": {
+    "agentIssues": {
+      "home": {
+        "title": "Agent Issues",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Agent Issues",
+        "createOrEditLabel": "Create or edit a Agent Issues",
+        "notFound": "No Agent Issues found"
+      },
+      "created": "A new Agent Issues is created with identifier {{ param }}",
+      "updated": "A Agent Issues is updated with identifier {{ param }}",
+      "deleted": "A Agent Issues is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Agent Issues {{ id }}?"
+      },
+      "detail": {
+        "title": "Agent Issues"
+      },
+      "id": "ID",
+      "type": "Type",
+      "state": "State",
+      "problem": "Problem",
+      "detail": "Detail",
+      "severity": "Severity",
+      "entityName": "Entity Name",
+      "entityLabel": "Entity Label",
+      "entityType": "Entity Type",
+      "fix": "Fix"
+    }
+  }
+}

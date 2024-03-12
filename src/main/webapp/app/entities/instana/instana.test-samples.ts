@@ -1,19 +1,19 @@
 import { IInstana, NewInstana } from './instana.model';
 
 export const sampleWithRequiredData: IInstana = {
-  id: 13019,
+  id: 21940,
 };
 
 export const sampleWithPartialData: IInstana = {
-  id: 32170,
-  apitoken: 'unless',
-  baseurl: 'exactly helplessly',
+  id: 31970,
+  apitoken: 'these',
+  baseurl: 'for ick load',
 };
 
 export const sampleWithFullData: IInstana = {
-  id: 7882,
-  apitoken: 'only gratefully insolence',
-  baseurl: 'hide',
+  id: 13805,
+  apitoken: 'minus yieldingly inasmuch',
+  baseurl: 'sweetly',
 };
 
 export const sampleWithNewData: NewInstana = {

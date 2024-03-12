@@ -1,0 +1,27 @@
+{
+  "moLocalrKbApp": {
+    "installedSoftware": {
+      "home": {
+        "title": "Installed Softwares",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Installed Software",
+        "createOrEditLabel": "Create or edit a Installed Software",
+        "notFound": "No Installed Softwares found"
+      },
+      "created": "A new Installed Software is created with identifier {{ param }}",
+      "updated": "A Installed Software is updated with identifier {{ param }}",
+      "deleted": "A Installed Software is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Installed Software {{ id }}?"
+      },
+      "detail": {
+        "title": "Installed Software"
+      },
+      "id": "ID",
+      "name": "Name",
+      "version": "Version",
+      "type": "Type",
+      "usedBy": "Used By"
+    }
+  }
+}
