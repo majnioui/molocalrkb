@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data JPA repository for the HealthAndVersion entity.
  */
-@SuppressWarnings("unused")
 @Repository
 public interface HealthAndVersionRepository extends JpaRepository<HealthAndVersion, Long> {}
