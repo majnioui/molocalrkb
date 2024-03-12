@@ -1,0 +1,28 @@
+{
+  "changelogDate": "20240312121237",
+  "entityTableName": "installed_software",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "usedBy",
+      "fieldType": "String"
+    }
+  ],
+  "name": "InstalledSoftware",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "no"
+}

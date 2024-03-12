@@ -1,0 +1,48 @@
+{
+  "changelogDate": "20240312112434",
+  "entityTableName": "agent_issues",
+  "fields": [
+    {
+      "fieldName": "type",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "problem",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "detail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "severity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "entityName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "entityLabel",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "entityType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fix",
+      "fieldType": "String"
+    }
+  ],
+  "name": "AgentIssues",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "no"
+}

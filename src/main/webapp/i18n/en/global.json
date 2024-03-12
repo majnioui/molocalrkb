@@ -8,7 +8,13 @@
       "entities": {
         "main": "Entities",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "instana": "Instana"
+        "instana": "Instana",
+        "agentIssues": "Agent Issues",
+        "events": "Events",
+        "infraTopology": "Infra Topology",
+        "installedSoftware": "Installed Software",
+        "healthAndVersion": "Health And Version",
+        "websites": "Websites"
       },
       "account": {
         "main": "Account",

@@ -1,0 +1,26 @@
+{
+  "moLocalrKbApp": {
+    "infraTopology": {
+      "home": {
+        "title": "Infra Topologies",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Infra Topology",
+        "createOrEditLabel": "Create or edit a Infra Topology",
+        "notFound": "No Infra Topologies found"
+      },
+      "created": "A new Infra Topology is created with identifier {{ param }}",
+      "updated": "A Infra Topology is updated with identifier {{ param }}",
+      "deleted": "A Infra Topology is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Infra Topology {{ id }}?"
+      },
+      "detail": {
+        "title": "Infra Topology"
+      },
+      "id": "ID",
+      "plugin": "Plugin",
+      "label": "Label",
+      "pluginId": "Plugin Id"
+    }
+  }
+}

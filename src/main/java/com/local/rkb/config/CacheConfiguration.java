@@ -49,6 +49,12 @@ public class CacheConfiguration {
             createCache(cm, com.local.rkb.domain.Authority.class.getName());
             createCache(cm, com.local.rkb.domain.User.class.getName() + ".authorities");
             createCache(cm, com.local.rkb.domain.Instana.class.getName());
+            createCache(cm, com.local.rkb.domain.AgentIssues.class.getName());
+            createCache(cm, com.local.rkb.domain.Events.class.getName());
+            createCache(cm, com.local.rkb.domain.InfraTopology.class.getName());
+            createCache(cm, com.local.rkb.domain.InstalledSoftware.class.getName());
+            createCache(cm, com.local.rkb.domain.HealthAndVersion.class.getName());
+            createCache(cm, com.local.rkb.domain.Websites.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,0 +1,24 @@
+{
+  "changelogDate": "20240312122116",
+  "entityTableName": "health_and_version",
+  "fields": [
+    {
+      "fieldName": "version",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "health",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "healthMsg",
+      "fieldType": "String"
+    }
+  ],
+  "name": "HealthAndVersion",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "no"
+}

@@ -1,0 +1,104 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-agent-issues-heading"
+        data-cy="AgentIssuesCreateUpdateHeading"
+        jhiTranslate="moLocalrKbApp.agentIssues.home.createOrEditLabel"
+      >
+        Create or edit a Agent Issues
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.agentIssues.type" for="field_type">Type</label>
+          <input type="text" class="form-control" name="type" id="field_type" data-cy="type" formControlName="type" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.agentIssues.state" for="field_state">State</label>
+          <input type="text" class="form-control" name="state" id="field_state" data-cy="state" formControlName="state" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.agentIssues.problem" for="field_problem">Problem</label>
+          <input type="text" class="form-control" name="problem" id="field_problem" data-cy="problem" formControlName="problem" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.agentIssues.detail" for="field_detail">Detail</label>
+          <input type="text" class="form-control" name="detail" id="field_detail" data-cy="detail" formControlName="detail" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.agentIssues.severity" for="field_severity">Severity</label>
+          <input type="text" class="form-control" name="severity" id="field_severity" data-cy="severity" formControlName="severity" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.agentIssues.entityName" for="field_entityName">Entity Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="entityName"
+            id="field_entityName"
+            data-cy="entityName"
+            formControlName="entityName"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.agentIssues.entityLabel" for="field_entityLabel">Entity Label</label>
+          <input
+            type="text"
+            class="form-control"
+            name="entityLabel"
+            id="field_entityLabel"
+            data-cy="entityLabel"
+            formControlName="entityLabel"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.agentIssues.entityType" for="field_entityType">Entity Type</label>
+          <input
+            type="text"
+            class="form-control"
+            name="entityType"
+            id="field_entityType"
+            data-cy="entityType"
+            formControlName="entityType"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.agentIssues.fix" for="field_fix">Fix</label>
+          <input type="text" class="form-control" name="fix" id="field_fix" data-cy="fix" formControlName="fix" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

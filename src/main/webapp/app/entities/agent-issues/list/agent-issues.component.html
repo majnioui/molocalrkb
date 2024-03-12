@@ -1,0 +1,134 @@
+<div>
+  <h2 id="page-heading" data-cy="AgentIssuesHeading">
+    <span jhiTranslate="moLocalrKbApp.agentIssues.home.title">Agent Issues</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="moLocalrKbApp.agentIssues.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-agent-issues"
+        [routerLink]="['/agent-issues/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="moLocalrKbApp.agentIssues.home.createLabel">Create a new Agent Issues</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="agentIssues?.length === 0">
+    <span jhiTranslate="moLocalrKbApp.agentIssues.home.notFound">No Agent Issues found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="agentIssues && agentIssues.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="type">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.agentIssues.type">Type</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="state">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.agentIssues.state">State</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="problem">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.agentIssues.problem">Problem</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="detail">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.agentIssues.detail">Detail</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="severity">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.agentIssues.severity">Severity</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="entityName">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.agentIssues.entityName">Entity Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="entityLabel">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.agentIssues.entityLabel">Entity Label</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="entityType">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.agentIssues.entityType">Entity Type</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fix">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.agentIssues.fix">Fix</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let agentIssues of agentIssues; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/agent-issues', agentIssues.id, 'view']">{{ agentIssues.id }}</a>
+          </td>
+          <td>{{ agentIssues.type }}</td>
+          <td>{{ agentIssues.state }}</td>
+          <td>{{ agentIssues.problem }}</td>
+          <td>{{ agentIssues.detail }}</td>
+          <td>{{ agentIssues.severity }}</td>
+          <td>{{ agentIssues.entityName }}</td>
+          <td>{{ agentIssues.entityLabel }}</td>
+          <td>{{ agentIssues.entityType }}</td>
+          <td>{{ agentIssues.fix }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <a [routerLink]="['/agent-issues', agentIssues.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </a>
+
+              <a [routerLink]="['/agent-issues', agentIssues.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </a>
+
+              <button type="submit" (click)="delete(agentIssues)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
