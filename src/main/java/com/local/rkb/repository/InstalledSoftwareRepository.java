@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data JPA repository for the InstalledSoftware entity.
  */
-@SuppressWarnings("unused")
 @Repository
 public interface InstalledSoftwareRepository extends JpaRepository<InstalledSoftware, Long> {}

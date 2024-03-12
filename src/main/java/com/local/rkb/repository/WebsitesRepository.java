@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data JPA repository for the Websites entity.
  */
-@SuppressWarnings("unused")
+
 @Repository
 public interface WebsitesRepository extends JpaRepository<Websites, Long> {}

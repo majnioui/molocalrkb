@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data JPA repository for the InfraTopology entity.
  */
-@SuppressWarnings("unused")
 @Repository
 public interface InfraTopologyRepository extends JpaRepository<InfraTopology, Long> {}
