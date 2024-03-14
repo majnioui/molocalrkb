@@ -27,6 +27,11 @@ export class StatsService {
   getAllEvents(): Observable<any> {
     return this.http.get('/api/all-events');
   }
+
+  getServices(): Observable<any> {
+    return this.http.get('/api/services');
+  }
+
   getAgentRelaltedIssues(): Observable<any> {
     return this.http.get('/api/agent-related-issues');
   }
