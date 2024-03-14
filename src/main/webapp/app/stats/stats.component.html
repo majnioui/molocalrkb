@@ -38,15 +38,21 @@
         <th>Types</th>
         <th>Technologies</th>
         <th>Entity Type</th>
+        <th>Erroneous Calls</th>
+        <th>Calls</th>
+        <th>Latency (Mean)</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let service of servicesData">
-        <td>{{ service.id }}</td>
-        <td>{{ service.label }}</td>
-        <td>{{ service.types.join(', ') || 'N/A' }}</td>
-        <td>{{ service.technologies.join(', ') }}</td>
-        <td>{{ service.entityType }}</td>
+      <tr *ngFor="let item of servicesData">
+        <td>{{ item.service.id }}</td>
+        <td>{{ item.service.label }}</td>
+        <td>{{ item.service.types.join(', ') || 'N/A' }}</td>
+        <td>{{ item.service.technologies.join(', ') }}</td>
+        <td>{{ item.service.entityType }}</td>
+        <td>{{ item.metrics['erroneousCalls.sum'][0][1] }}</td>
+        <td>{{ item.metrics['calls.sum'][0][1] }}</td>
+        <td>{{ item.metrics['latency.mean'][0][1] }}</td>
       </tr>
     </tbody>
   </table>

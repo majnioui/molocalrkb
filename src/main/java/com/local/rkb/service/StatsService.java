@@ -215,7 +215,20 @@ public class StatsService {
     }
 
     public String getServices() {
-        String endpoint = "/api/application-monitoring/services";
-        return makeGetRequest(endpoint);
+        String endpoint = "/api/application-monitoring/metrics/services";
+        String jsonPayload =
+            """
+            {
+                "applicationBoundaryScope": "ALL",
+                "contextScope": "NONE",
+                "metrics": [
+                    {"aggregation": "SUM", "metric": "calls"},
+                    {"aggregation": "SUM", "metric": "erroneousCalls"},
+                    {"aggregation": "MEAN", "metric": "latency"},
+                    {"aggregation": "DISTINCT_COUNT", "metric": "applications"},
+                    {"aggregation": "DISTINCT_COUNT", "metric": "endpoints"}
+                ]
+            }""";
+        return makePostRequest(endpoint, jsonPayload);
     }
 }
