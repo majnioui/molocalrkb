@@ -213,4 +213,9 @@ public class StatsService {
         String endpoint = "/api/instana/health";
         return makeGetRequest(endpoint);
     }
+
+    public String getServices() {
+        String endpoint = "/api/application-monitoring/services";
+        return makeGetRequest(endpoint);
+    }
 }

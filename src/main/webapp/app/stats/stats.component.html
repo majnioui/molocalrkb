@@ -27,6 +27,32 @@
   </div>
 </div>
 
+<!-- Services Section -->
+<p class="section-title">Services</p>
+<div *ngIf="servicesData && servicesData.length > 0; else noServices">
+  <table class="events-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Label</th>
+        <th>Types</th>
+        <th>Technologies</th>
+        <th>Entity Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let service of servicesData">
+        <td>{{ service.id }}</td>
+        <td>{{ service.label }}</td>
+        <td>{{ service.types.join(', ') || 'N/A' }}</td>
+        <td>{{ service.technologies.join(', ') }}</td>
+        <td>{{ service.entityType }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noServices><p>No services found.</p></ng-template>
+
 <!-- Agents Section -->
 <p class="section-title">Agents</p>
 <div *ngIf="hostAgentDetails">

@@ -19,6 +19,7 @@ export class StatsComponent implements OnInit {
   agentRelatedIssues: any[] = [];
   instanaVersion: any;
   instanaHealth: any;
+  servicesData: any[] = [];
 
   constructor(
     private statsService: StatsService,
@@ -69,6 +70,17 @@ export class StatsComponent implements OnInit {
       },
       error => {
         console.error('Failed to fetch all events:', error);
+      },
+    );
+
+    // Fetch all services
+    this.statsService.getServices().subscribe(
+      data => {
+        this.servicesData = data.items;
+        this.cdr.detectChanges();
+      },
+      error => {
+        console.error('Failed to fetch services:', error);
       },
     );
 
