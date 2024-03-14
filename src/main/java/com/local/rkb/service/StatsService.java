@@ -1,12 +1,17 @@
 package com.local.rkb.service;
 
+import com.local.rkb.domain.AgentIssues;
 import com.local.rkb.domain.Instana;
+import com.local.rkb.repository.AgentIssuesRepository;
 import com.local.rkb.repository.InstanaRepository;
 import jakarta.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.time.Instant;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -20,6 +25,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class StatsService {
+
+    private static final Logger log = LoggerFactory.getLogger(StatsService.class);
 
     @Autowired
     private RestTemplate restTemplate;
@@ -37,6 +44,9 @@ public class StatsService {
 
     @Autowired
     private InstanaRepository InstanaRepository;
+
+    @Autowired
+    private AgentIssuesRepository agentIssuesRepository;
 
     @PostConstruct
     public void init() {
@@ -170,7 +180,28 @@ public class StatsService {
 
     public String getAgentRelaltedIssues() {
         String endpoint = "/api/events/agent-monitoring-events";
-        return makeGetRequest(endpoint);
+        String response = makeGetRequest(endpoint);
+        try {
+            JSONArray items = new JSONArray(response);
+            for (int i = 0; i < items.length(); i++) {
+                JSONObject item = items.getJSONObject(i);
+                AgentIssues issue = new AgentIssues();
+                issue.setType(item.optString("type"));
+                issue.setState(item.optString("state"));
+                issue.setProblem(item.optString("problem"));
+                issue.setDetail(item.optString("detail"));
+                issue.setSeverity(item.optString("severity"));
+                issue.setEntityName(item.optString("entityName"));
+                issue.setEntityLabel(item.optString("entityLabel"));
+                issue.setEntityType(item.optString("entityType"));
+                issue.setFix(item.optString("fixSuggestion"));
+                issue.setAtTime(Instant.now());
+                agentIssuesRepository.save(issue);
+            }
+        } catch (Exception e) {
+            return "[]";
+        }
+        return response;
     }
 
     public String getInstanaVersion() {

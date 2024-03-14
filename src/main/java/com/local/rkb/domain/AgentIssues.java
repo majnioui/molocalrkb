@@ -2,6 +2,7 @@ package com.local.rkb.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -48,6 +49,9 @@ public class AgentIssues implements Serializable {
 
     @Column(name = "fix")
     private String fix;
+
+    @Column(name = "at_time")
+    private Instant atTime;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -181,6 +185,19 @@ public class AgentIssues implements Serializable {
         this.fix = fix;
     }
 
+    public Instant getAtTime() {
+        return this.atTime;
+    }
+
+    public AgentIssues atTime(Instant atTime) {
+        this.setAtTime(atTime);
+        return this;
+    }
+
+    public void setAtTime(Instant atTime) {
+        this.atTime = atTime;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -214,6 +231,7 @@ public class AgentIssues implements Serializable {
             ", entityLabel='" + getEntityLabel() + "'" +
             ", entityType='" + getEntityType() + "'" +
             ", fix='" + getFix() + "'" +
+            ", atTime='" + getAtTime() + "'" +
             "}";
     }
 }

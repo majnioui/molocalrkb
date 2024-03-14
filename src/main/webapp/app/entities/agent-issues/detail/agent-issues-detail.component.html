@@ -52,6 +52,10 @@
         <dd>
           <span>{{ agentIssues.fix }}</span>
         </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.agentIssues.atTime">At Time</span></dt>
+        <dd>
+          <span>{{ agentIssues.atTime | formatMediumDatetime }}</span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

@@ -150,6 +150,9 @@ public class AgentIssuesResource {
                 if (agentIssues.getFix() != null) {
                     existingAgentIssues.setFix(agentIssues.getFix());
                 }
+                if (agentIssues.getAtTime() != null) {
+                    existingAgentIssues.setAtTime(agentIssues.getAtTime());
+                }
 
                 return existingAgentIssues;
             })

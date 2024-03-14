@@ -29,6 +29,7 @@ describe('AgentIssues Form Service', () => {
             entityLabel: expect.any(Object),
             entityType: expect.any(Object),
             fix: expect.any(Object),
+            atTime: expect.any(Object),
           }),
         );
       });
@@ -48,6 +49,7 @@ describe('AgentIssues Form Service', () => {
             entityLabel: expect.any(Object),
             entityType: expect.any(Object),
             fix: expect.any(Object),
+            atTime: expect.any(Object),
           }),
         );
       });

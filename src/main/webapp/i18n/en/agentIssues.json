@@ -26,7 +26,8 @@
       "entityName": "Entity Name",
       "entityLabel": "Entity Label",
       "entityType": "Entity Type",
-      "fix": "Fix"
+      "fix": "Fix",
+      "atTime": "At Time"
     }
   }
 }

@@ -37,6 +37,10 @@
     {
       "fieldName": "fix",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "atTime",
+      "fieldType": "Instant"
     }
   ],
   "name": "AgentIssues",
