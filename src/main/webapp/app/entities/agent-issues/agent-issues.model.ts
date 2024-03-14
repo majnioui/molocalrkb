@@ -1,3 +1,5 @@
+import dayjs from 'dayjs/esm';
+
 export interface IAgentIssues {
   id: number;
   type?: string | null;
@@ -9,6 +11,7 @@ export interface IAgentIssues {
   entityLabel?: string | null;
   entityType?: string | null;
   fix?: string | null;
+  atTime?: dayjs.Dayjs | null;
 }
 
 export type NewAgentIssues = Omit<IAgentIssues, 'id'> & { id: null };

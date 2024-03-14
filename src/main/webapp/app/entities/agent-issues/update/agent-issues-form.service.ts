@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import dayjs from 'dayjs/esm';
+import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 import { IAgentIssues, NewAgentIssues } from '../agent-issues.model';
 
 /**
@@ -14,19 +16,31 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type AgentIssuesFormGroupInput = IAgentIssues | PartialWithRequiredKeyOf<NewAgentIssues>;
 
-type AgentIssuesFormDefaults = Pick<NewAgentIssues, 'id'>;
+/**
+ * Type that converts some properties for forms.
+ */
+type FormValueOf<T extends IAgentIssues | NewAgentIssues> = Omit<T, 'atTime'> & {
+  atTime?: string | null;
+};
+
+type AgentIssuesFormRawValue = FormValueOf<IAgentIssues>;
+
+type NewAgentIssuesFormRawValue = FormValueOf<NewAgentIssues>;
+
+type AgentIssuesFormDefaults = Pick<NewAgentIssues, 'id' | 'atTime'>;
 
 type AgentIssuesFormGroupContent = {
-  id: FormControl<IAgentIssues['id'] | NewAgentIssues['id']>;
-  type: FormControl<IAgentIssues['type']>;
-  state: FormControl<IAgentIssues['state']>;
-  problem: FormControl<IAgentIssues['problem']>;
-  detail: FormControl<IAgentIssues['detail']>;
-  severity: FormControl<IAgentIssues['severity']>;
-  entityName: FormControl<IAgentIssues['entityName']>;
-  entityLabel: FormControl<IAgentIssues['entityLabel']>;
-  entityType: FormControl<IAgentIssues['entityType']>;
-  fix: FormControl<IAgentIssues['fix']>;
+  id: FormControl<AgentIssuesFormRawValue['id'] | NewAgentIssues['id']>;
+  type: FormControl<AgentIssuesFormRawValue['type']>;
+  state: FormControl<AgentIssuesFormRawValue['state']>;
+  problem: FormControl<AgentIssuesFormRawValue['problem']>;
+  detail: FormControl<AgentIssuesFormRawValue['detail']>;
+  severity: FormControl<AgentIssuesFormRawValue['severity']>;
+  entityName: FormControl<AgentIssuesFormRawValue['entityName']>;
+  entityLabel: FormControl<AgentIssuesFormRawValue['entityLabel']>;
+  entityType: FormControl<AgentIssuesFormRawValue['entityType']>;
+  fix: FormControl<AgentIssuesFormRawValue['fix']>;
+  atTime: FormControl<AgentIssuesFormRawValue['atTime']>;
 };
 
 export type AgentIssuesFormGroup = FormGroup<AgentIssuesFormGroupContent>;
@@ -34,10 +48,10 @@ export type AgentIssuesFormGroup = FormGroup<AgentIssuesFormGroupContent>;
 @Injectable({ providedIn: 'root' })
 export class AgentIssuesFormService {
   createAgentIssuesFormGroup(agentIssues: AgentIssuesFormGroupInput = { id: null }): AgentIssuesFormGroup {
-    const agentIssuesRawValue = {
+    const agentIssuesRawValue = this.convertAgentIssuesToAgentIssuesRawValue({
       ...this.getFormDefaults(),
       ...agentIssues,
-    };
+    });
     return new FormGroup<AgentIssuesFormGroupContent>({
       id: new FormControl(
         { value: agentIssuesRawValue.id, disabled: true },
@@ -55,15 +69,16 @@ export class AgentIssuesFormService {
       entityLabel: new FormControl(agentIssuesRawValue.entityLabel),
       entityType: new FormControl(agentIssuesRawValue.entityType),
       fix: new FormControl(agentIssuesRawValue.fix),
+      atTime: new FormControl(agentIssuesRawValue.atTime),
     });
   }
 
   getAgentIssues(form: AgentIssuesFormGroup): IAgentIssues | NewAgentIssues {
-    return form.getRawValue() as IAgentIssues | NewAgentIssues;
+    return this.convertAgentIssuesRawValueToAgentIssues(form.getRawValue() as AgentIssuesFormRawValue | NewAgentIssuesFormRawValue);
   }
 
   resetForm(form: AgentIssuesFormGroup, agentIssues: AgentIssuesFormGroupInput): void {
-    const agentIssuesRawValue = { ...this.getFormDefaults(), ...agentIssues };
+    const agentIssuesRawValue = this.convertAgentIssuesToAgentIssuesRawValue({ ...this.getFormDefaults(), ...agentIssues });
     form.reset(
       {
         ...agentIssuesRawValue,
@@ -73,8 +88,29 @@ export class AgentIssuesFormService {
   }
 
   private getFormDefaults(): AgentIssuesFormDefaults {
+    const currentTime = dayjs();
+
     return {
       id: null,
+      atTime: currentTime,
+    };
+  }
+
+  private convertAgentIssuesRawValueToAgentIssues(
+    rawAgentIssues: AgentIssuesFormRawValue | NewAgentIssuesFormRawValue,
+  ): IAgentIssues | NewAgentIssues {
+    return {
+      ...rawAgentIssues,
+      atTime: dayjs(rawAgentIssues.atTime, DATE_TIME_FORMAT),
+    };
+  }
+
+  private convertAgentIssuesToAgentIssuesRawValue(
+    agentIssues: IAgentIssues | (Partial<NewAgentIssues> & AgentIssuesFormDefaults),
+  ): AgentIssuesFormRawValue | PartialWithRequiredKeyOf<NewAgentIssuesFormRawValue> {
+    return {
+      ...agentIssues,
+      atTime: agentIssues.atTime ? agentIssues.atTime.format(DATE_TIME_FORMAT) : undefined,
     };
   }
 }

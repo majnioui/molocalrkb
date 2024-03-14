@@ -41,8 +41,12 @@
             <column name="fix" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="at_time" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
+        <dropDefaultValue tableName="agent_issues" columnName="at_time" columnDataType="${datetimeType}"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -71,6 +75,7 @@
             <column name="entity_label" type="string"/>
             <column name="entity_type" type="string"/>
             <column name="fix" type="string"/>
+            <column name="at_time" type="date"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

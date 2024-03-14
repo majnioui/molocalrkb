@@ -4,10 +4,11 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { IAgentIssues } from '../agent-issues.model';
 import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../agent-issues.test-samples';
 
-import { AgentIssuesService } from './agent-issues.service';
+import { AgentIssuesService, RestAgentIssues } from './agent-issues.service';
 
-const requireRestSample: IAgentIssues = {
+const requireRestSample: RestAgentIssues = {
   ...sampleWithRequiredData,
+  atTime: sampleWithRequiredData.atTime?.toJSON(),
 };
 
 describe('AgentIssues Service', () => {

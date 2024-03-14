@@ -9,6 +9,8 @@ import com.local.rkb.IntegrationTest;
 import com.local.rkb.domain.AgentIssues;
 import com.local.rkb.repository.AgentIssuesRepository;
 import jakarta.persistence.EntityManager;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -56,6 +58,9 @@ class AgentIssuesResourceIT {
     private static final String DEFAULT_FIX = "AAAAAAAAAA";
     private static final String UPDATED_FIX = "BBBBBBBBBB";
 
+    private static final Instant DEFAULT_AT_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_AT_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
     private static final String ENTITY_API_URL = "/api/agent-issues";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -89,7 +94,8 @@ class AgentIssuesResourceIT {
             .entityName(DEFAULT_ENTITY_NAME)
             .entityLabel(DEFAULT_ENTITY_LABEL)
             .entityType(DEFAULT_ENTITY_TYPE)
-            .fix(DEFAULT_FIX);
+            .fix(DEFAULT_FIX)
+            .atTime(DEFAULT_AT_TIME);
         return agentIssues;
     }
 
@@ -109,7 +115,8 @@ class AgentIssuesResourceIT {
             .entityName(UPDATED_ENTITY_NAME)
             .entityLabel(UPDATED_ENTITY_LABEL)
             .entityType(UPDATED_ENTITY_TYPE)
-            .fix(UPDATED_FIX);
+            .fix(UPDATED_FIX)
+            .atTime(UPDATED_AT_TIME);
         return agentIssues;
     }
 
@@ -140,6 +147,7 @@ class AgentIssuesResourceIT {
         assertThat(testAgentIssues.getEntityLabel()).isEqualTo(DEFAULT_ENTITY_LABEL);
         assertThat(testAgentIssues.getEntityType()).isEqualTo(DEFAULT_ENTITY_TYPE);
         assertThat(testAgentIssues.getFix()).isEqualTo(DEFAULT_FIX);
+        assertThat(testAgentIssues.getAtTime()).isEqualTo(DEFAULT_AT_TIME);
     }
 
     @Test
@@ -180,7 +188,8 @@ class AgentIssuesResourceIT {
             .andExpect(jsonPath("$.[*].entityName").value(hasItem(DEFAULT_ENTITY_NAME)))
             .andExpect(jsonPath("$.[*].entityLabel").value(hasItem(DEFAULT_ENTITY_LABEL)))
             .andExpect(jsonPath("$.[*].entityType").value(hasItem(DEFAULT_ENTITY_TYPE)))
-            .andExpect(jsonPath("$.[*].fix").value(hasItem(DEFAULT_FIX)));
+            .andExpect(jsonPath("$.[*].fix").value(hasItem(DEFAULT_FIX)))
+            .andExpect(jsonPath("$.[*].atTime").value(hasItem(DEFAULT_AT_TIME.toString())));
     }
 
     @Test
@@ -203,7 +212,8 @@ class AgentIssuesResourceIT {
             .andExpect(jsonPath("$.entityName").value(DEFAULT_ENTITY_NAME))
             .andExpect(jsonPath("$.entityLabel").value(DEFAULT_ENTITY_LABEL))
             .andExpect(jsonPath("$.entityType").value(DEFAULT_ENTITY_TYPE))
-            .andExpect(jsonPath("$.fix").value(DEFAULT_FIX));
+            .andExpect(jsonPath("$.fix").value(DEFAULT_FIX))
+            .andExpect(jsonPath("$.atTime").value(DEFAULT_AT_TIME.toString()));
     }
 
     @Test
@@ -234,7 +244,8 @@ class AgentIssuesResourceIT {
             .entityName(UPDATED_ENTITY_NAME)
             .entityLabel(UPDATED_ENTITY_LABEL)
             .entityType(UPDATED_ENTITY_TYPE)
-            .fix(UPDATED_FIX);
+            .fix(UPDATED_FIX)
+            .atTime(UPDATED_AT_TIME);
 
         restAgentIssuesMockMvc
             .perform(
@@ -257,6 +268,7 @@ class AgentIssuesResourceIT {
         assertThat(testAgentIssues.getEntityLabel()).isEqualTo(UPDATED_ENTITY_LABEL);
         assertThat(testAgentIssues.getEntityType()).isEqualTo(UPDATED_ENTITY_TYPE);
         assertThat(testAgentIssues.getFix()).isEqualTo(UPDATED_FIX);
+        assertThat(testAgentIssues.getAtTime()).isEqualTo(UPDATED_AT_TIME);
     }
 
     @Test
@@ -327,7 +339,12 @@ class AgentIssuesResourceIT {
         AgentIssues partialUpdatedAgentIssues = new AgentIssues();
         partialUpdatedAgentIssues.setId(agentIssues.getId());
 
-        partialUpdatedAgentIssues.type(UPDATED_TYPE).detail(UPDATED_DETAIL).entityType(UPDATED_ENTITY_TYPE).fix(UPDATED_FIX);
+        partialUpdatedAgentIssues
+            .type(UPDATED_TYPE)
+            .detail(UPDATED_DETAIL)
+            .entityType(UPDATED_ENTITY_TYPE)
+            .fix(UPDATED_FIX)
+            .atTime(UPDATED_AT_TIME);
 
         restAgentIssuesMockMvc
             .perform(
@@ -350,6 +367,7 @@ class AgentIssuesResourceIT {
         assertThat(testAgentIssues.getEntityLabel()).isEqualTo(DEFAULT_ENTITY_LABEL);
         assertThat(testAgentIssues.getEntityType()).isEqualTo(UPDATED_ENTITY_TYPE);
         assertThat(testAgentIssues.getFix()).isEqualTo(UPDATED_FIX);
+        assertThat(testAgentIssues.getAtTime()).isEqualTo(UPDATED_AT_TIME);
     }
 
     @Test
@@ -373,7 +391,8 @@ class AgentIssuesResourceIT {
             .entityName(UPDATED_ENTITY_NAME)
             .entityLabel(UPDATED_ENTITY_LABEL)
             .entityType(UPDATED_ENTITY_TYPE)
-            .fix(UPDATED_FIX);
+            .fix(UPDATED_FIX)
+            .atTime(UPDATED_AT_TIME);
 
         restAgentIssuesMockMvc
             .perform(
@@ -396,6 +415,7 @@ class AgentIssuesResourceIT {
         assertThat(testAgentIssues.getEntityLabel()).isEqualTo(UPDATED_ENTITY_LABEL);
         assertThat(testAgentIssues.getEntityType()).isEqualTo(UPDATED_ENTITY_TYPE);
         assertThat(testAgentIssues.getFix()).isEqualTo(UPDATED_FIX);
+        assertThat(testAgentIssues.getAtTime()).isEqualTo(UPDATED_AT_TIME);
     }
 
     @Test
