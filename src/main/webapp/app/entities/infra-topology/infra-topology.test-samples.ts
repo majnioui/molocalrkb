@@ -1,20 +1,20 @@
 import { IInfraTopology, NewInfraTopology } from './infra-topology.model';
 
 export const sampleWithRequiredData: IInfraTopology = {
-  id: 29215,
+  id: 26084,
 };
 
 export const sampleWithPartialData: IInfraTopology = {
-  id: 2907,
-  plugin: 'kitten',
-  label: 'fooey hence',
+  id: 17715,
+  plugin: 'yuck each',
+  pluginId: 'spay when spike',
 };
 
 export const sampleWithFullData: IInfraTopology = {
-  id: 28563,
-  plugin: 'plonk wisely yahoo',
-  label: 'warrior ouch',
-  pluginId: 'mysteriously cross after',
+  id: 24867,
+  plugin: 'ack',
+  label: 'chargesheet given',
+  pluginId: 'equatorial variable',
 };
 
 export const sampleWithNewData: NewInfraTopology = {

@@ -14,7 +14,8 @@
         "infraTopology": "Infra Topology",
         "installedSoftware": "Installed Software",
         "healthAndVersion": "Health And Version",
-        "websites": "Websites"
+        "websites": "Websites",
+        "appServices": "App Services"
       },
       "account": {
         "main": "Account",

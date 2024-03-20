@@ -1,18 +1,17 @@
 import { IWebsites, NewWebsites } from './websites.model';
 
 export const sampleWithRequiredData: IWebsites = {
-  id: 28988,
+  id: 5672,
 };
 
 export const sampleWithPartialData: IWebsites = {
-  id: 3529,
-  website: 'distorted or strictly',
+  id: 1277,
 };
 
 export const sampleWithFullData: IWebsites = {
-  id: 1903,
-  website: 'incense',
-  websiteId: 'cayenne stepdaughter dense',
+  id: 2187,
+  website: 'yowza',
+  websiteId: 'proper save',
 };
 
 export const sampleWithNewData: NewWebsites = {

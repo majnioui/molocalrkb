@@ -3,28 +3,27 @@ import dayjs from 'dayjs/esm';
 import { IAgentIssues, NewAgentIssues } from './agent-issues.model';
 
 export const sampleWithRequiredData: IAgentIssues = {
-  id: 15758,
+  id: 20043,
 };
 
 export const sampleWithPartialData: IAgentIssues = {
-  id: 8212,
-  type: 'shave nutty',
-  entityName: 'yippee',
-  entityType: 'sheepishly',
+  id: 13668,
+  detail: 'ah',
+  severity: 'bagpipe cultured yippee',
 };
 
 export const sampleWithFullData: IAgentIssues = {
-  id: 10185,
-  type: 'whereas midst',
-  state: 'till whose wherever',
-  problem: 'crowded reassuringly',
-  detail: 'fervently',
-  severity: 'competent what cuddly',
-  entityName: 'when whose resuscitate',
-  entityLabel: 'and marry',
-  entityType: 'aside affiliate considering',
-  fix: 'ligand',
-  atTime: dayjs('2024-03-12T11:18'),
+  id: 30367,
+  type: 'pro husband',
+  state: 'gee portly than',
+  problem: 'frankly',
+  detail: 'yowza',
+  severity: 'yahoo witty pish',
+  entityName: 'reappraise',
+  entityLabel: 'joint anenst geez',
+  entityType: 'zowie gadzooks while',
+  fix: 'er wherever whose',
+  atTime: dayjs('2024-03-12T02:46'),
 };
 
 export const sampleWithNewData: NewAgentIssues = {

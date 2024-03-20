@@ -39,6 +39,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'moLocalrKbApp.websites.home.title' },
         loadChildren: () => import('./websites/websites.routes'),
       },
+      {
+        path: 'app-services',
+        data: { pageTitle: 'moLocalrKbApp.appServices.home.title' },
+        loadChildren: () => import('./app-services/app-services.routes'),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

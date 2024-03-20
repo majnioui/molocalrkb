@@ -1,0 +1,134 @@
+<div>
+  <h2 id="page-heading" data-cy="AppServicesHeading">
+    <span jhiTranslate="moLocalrKbApp.appServices.home.title">App Services</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="moLocalrKbApp.appServices.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-app-services"
+        [routerLink]="['/app-services/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="moLocalrKbApp.appServices.home.createLabel">Create a new App Services</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="appServices?.length === 0">
+    <span jhiTranslate="moLocalrKbApp.appServices.home.notFound">No App Services found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="appServices && appServices.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="servId">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.appServices.servId">Serv Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="label">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.appServices.label">Label</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="types">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.appServices.types">Types</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="technologies">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.appServices.technologies">Technologies</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="entityType">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.appServices.entityType">Entity Type</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="erronCalls">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.appServices.erronCalls">Erron Calls</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="calls">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.appServices.calls">Calls</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="latency">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.appServices.latency">Latency</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="date">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.appServices.date">Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appServices of appServices; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/app-services', appServices.id, 'view']">{{ appServices.id }}</a>
+          </td>
+          <td>{{ appServices.servId }}</td>
+          <td>{{ appServices.label }}</td>
+          <td>{{ appServices.types }}</td>
+          <td>{{ appServices.technologies }}</td>
+          <td>{{ appServices.entityType }}</td>
+          <td>{{ appServices.erronCalls }}</td>
+          <td>{{ appServices.calls }}</td>
+          <td>{{ appServices.latency }}</td>
+          <td>{{ appServices.date | formatMediumDatetime }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <a [routerLink]="['/app-services', appServices.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </a>
+
+              <a [routerLink]="['/app-services', appServices.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </a>
+
+              <button type="submit" (click)="delete(appServices)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
