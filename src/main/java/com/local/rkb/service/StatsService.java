@@ -1,8 +1,10 @@
 package com.local.rkb.service;
 
 import com.local.rkb.domain.AgentIssues;
+import com.local.rkb.domain.AppServices;
 import com.local.rkb.domain.Instana;
 import com.local.rkb.repository.AgentIssuesRepository;
+import com.local.rkb.repository.AppServicesRepository;
 import com.local.rkb.repository.InstanaRepository;
 import jakarta.annotation.PostConstruct;
 import java.io.BufferedReader;
@@ -47,6 +49,9 @@ public class StatsService {
 
     @Autowired
     private AgentIssuesRepository agentIssuesRepository;
+
+    @Autowired
+    private AppServicesRepository appServicesRepository;
 
     @PostConstruct
     public void init() {
@@ -229,6 +234,38 @@ public class StatsService {
                     {"aggregation": "DISTINCT_COUNT", "metric": "endpoints"}
                 ]
             }""";
-        return makePostRequest(endpoint, jsonPayload);
+        String response = makePostRequest(endpoint, jsonPayload);
+        log.info("Sending request to get services");
+
+        try {
+            JSONObject jsonResponse = new JSONObject(response);
+            JSONArray items = jsonResponse.getJSONArray("items");
+            log.info("Processing {} service items from response", items.length());
+            for (int i = 0; i < items.length(); i++) {
+                JSONObject item = items.getJSONObject(i);
+                JSONObject service = item.getJSONObject("service");
+                JSONObject metrics = item.getJSONObject("metrics");
+
+                AppServices appService = new AppServices();
+                appService.setServId(service.optString("id"));
+                appService.setLabel(service.optString("label"));
+                appService.setTypes(service.getJSONArray("types").toString());
+                appService.setTechnologies(service.getJSONArray("technologies").toString());
+                appService.setEntityType(service.optString("entityType"));
+
+                appService.setErronCalls(metrics.getJSONArray("erroneousCalls.sum").getJSONArray(0).get(1).toString());
+                appService.setCalls(metrics.getJSONArray("calls.sum").getJSONArray(0).get(1).toString());
+                appService.setLatency(metrics.getJSONArray("latency.mean").getJSONArray(0).get(1).toString());
+                appService.setDate(Instant.now());
+
+                appServicesRepository.save(appService);
+                log.info("Saved service details for: {}", service.optString("label"));
+            }
+        } catch (Exception e) {
+            log.error("Error processing services response", e);
+            return "[]";
+        }
+        log.info("Completed processing services");
+        return response;
     }
 }
