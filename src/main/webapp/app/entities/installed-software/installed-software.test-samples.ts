@@ -1,20 +1,21 @@
 import { IInstalledSoftware, NewInstalledSoftware } from './installed-software.model';
 
 export const sampleWithRequiredData: IInstalledSoftware = {
-  id: 27552,
+  id: 28491,
 };
 
 export const sampleWithPartialData: IInstalledSoftware = {
-  id: 31000,
-  name: 'like',
+  id: 18468,
+  version: 'provided across',
+  type: 'whoa',
 };
 
 export const sampleWithFullData: IInstalledSoftware = {
-  id: 2841,
-  name: 'mix till',
-  version: 'overconfidently gosh opposite',
-  type: 'over diligently',
-  usedBy: 'yippee',
+  id: 11834,
+  name: 'ha depend',
+  version: 'upon unusual knottily',
+  type: 'though',
+  usedBy: 'huzzah',
 };
 
 export const sampleWithNewData: NewInstalledSoftware = {

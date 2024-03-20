@@ -3,30 +3,31 @@ import dayjs from 'dayjs/esm';
 import { IEvents, NewEvents } from './events.model';
 
 export const sampleWithRequiredData: IEvents = {
-  id: 27932,
+  id: 16489,
 };
 
 export const sampleWithPartialData: IEvents = {
-  id: 6993,
-  state: 'pigsty mmm',
-  problem: 'stand',
-  detail: 'pish phew pleasant',
-  entityLabel: 'sticky quickly lest',
-  entityType: 'cooperative even',
+  id: 2029,
+  type: 'zowie',
+  state: 'geez',
+  severity: 'worth',
+  entityName: 'rudely needily',
+  entityLabel: 'with',
+  entityType: 'mid export defuse',
 };
 
 export const sampleWithFullData: IEvents = {
-  id: 25634,
-  type: 'meh onto',
-  state: 'leach shed well-informed',
-  problem: 'jubilant hastily',
-  detail: 'verify for duh',
-  severity: 'continually mountainous dapper',
-  entityName: 'into',
-  entityLabel: 'behave sedately upward',
-  entityType: 'scared safely',
-  fix: 'junior warmhearted truly',
-  date: dayjs('2024-03-12T10:03'),
+  id: 4196,
+  type: 'control waste critical',
+  state: 'shield afterwards',
+  problem: 'pancake',
+  detail: 'versus between following',
+  severity: 'of ack before',
+  entityName: 'dimly',
+  entityLabel: 'midst few',
+  entityType: 'yahoo weepy casement',
+  fix: 'below duh',
+  date: dayjs('2024-03-12T07:19'),
 };
 
 export const sampleWithNewData: NewEvents = {

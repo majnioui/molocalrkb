@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="appServices">
+      <h2 data-cy="appServicesDetailsHeading"><span jhiTranslate="moLocalrKbApp.appServices.detail.title">App Services</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ appServices.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.appServices.servId">Serv Id</span></dt>
+        <dd>
+          <span>{{ appServices.servId }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.appServices.label">Label</span></dt>
+        <dd>
+          <span>{{ appServices.label }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.appServices.types">Types</span></dt>
+        <dd>
+          <span>{{ appServices.types }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.appServices.technologies">Technologies</span></dt>
+        <dd>
+          <span>{{ appServices.technologies }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.appServices.entityType">Entity Type</span></dt>
+        <dd>
+          <span>{{ appServices.entityType }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.appServices.erronCalls">Erron Calls</span></dt>
+        <dd>
+          <span>{{ appServices.erronCalls }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.appServices.calls">Calls</span></dt>
+        <dd>
+          <span>{{ appServices.calls }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.appServices.latency">Latency</span></dt>
+        <dd>
+          <span>{{ appServices.latency }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.appServices.date">Date</span></dt>
+        <dd>
+          <span>{{ appServices.date | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/app-services', appServices.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

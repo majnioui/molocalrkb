@@ -1,0 +1,48 @@
+{
+  "changelogDate": "20240320103044",
+  "entityTableName": "app_services",
+  "fields": [
+    {
+      "fieldName": "servId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "label",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "types",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "technologies",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "entityType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "erronCalls",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "calls",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "latency",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant"
+    }
+  ],
+  "name": "AppServices",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "no"
+}

@@ -55,6 +55,7 @@ public class CacheConfiguration {
             createCache(cm, com.local.rkb.domain.InstalledSoftware.class.getName());
             createCache(cm, com.local.rkb.domain.HealthAndVersion.class.getName());
             createCache(cm, com.local.rkb.domain.Websites.class.getName());
+            createCache(cm, com.local.rkb.domain.AppServices.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

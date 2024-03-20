@@ -1,0 +1,114 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-app-services-heading"
+        data-cy="AppServicesCreateUpdateHeading"
+        jhiTranslate="moLocalrKbApp.appServices.home.createOrEditLabel"
+      >
+        Create or edit a App Services
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.appServices.servId" for="field_servId">Serv Id</label>
+          <input type="text" class="form-control" name="servId" id="field_servId" data-cy="servId" formControlName="servId" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.appServices.label" for="field_label">Label</label>
+          <input type="text" class="form-control" name="label" id="field_label" data-cy="label" formControlName="label" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.appServices.types" for="field_types">Types</label>
+          <input type="text" class="form-control" name="types" id="field_types" data-cy="types" formControlName="types" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.appServices.technologies" for="field_technologies">Technologies</label>
+          <input
+            type="text"
+            class="form-control"
+            name="technologies"
+            id="field_technologies"
+            data-cy="technologies"
+            formControlName="technologies"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.appServices.entityType" for="field_entityType">Entity Type</label>
+          <input
+            type="text"
+            class="form-control"
+            name="entityType"
+            id="field_entityType"
+            data-cy="entityType"
+            formControlName="entityType"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.appServices.erronCalls" for="field_erronCalls">Erron Calls</label>
+          <input
+            type="text"
+            class="form-control"
+            name="erronCalls"
+            id="field_erronCalls"
+            data-cy="erronCalls"
+            formControlName="erronCalls"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.appServices.calls" for="field_calls">Calls</label>
+          <input type="text" class="form-control" name="calls" id="field_calls" data-cy="calls" formControlName="calls" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.appServices.latency" for="field_latency">Latency</label>
+          <input type="text" class="form-control" name="latency" id="field_latency" data-cy="latency" formControlName="latency" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="moLocalrKbApp.appServices.date" for="field_date">Date</label>
+          <div class="d-flex">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="datetime-local"
+              class="form-control"
+              name="date"
+              formControlName="date"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
