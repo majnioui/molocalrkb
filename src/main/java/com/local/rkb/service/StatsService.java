@@ -235,12 +235,9 @@ public class StatsService {
                 ]
             }""";
         String response = makePostRequest(endpoint, jsonPayload);
-        log.info("Sending request to get services");
-
         try {
             JSONObject jsonResponse = new JSONObject(response);
             JSONArray items = jsonResponse.getJSONArray("items");
-            log.info("Processing {} service items from response", items.length());
             for (int i = 0; i < items.length(); i++) {
                 JSONObject item = items.getJSONObject(i);
                 JSONObject service = item.getJSONObject("service");
@@ -259,13 +256,10 @@ public class StatsService {
                 appService.setDate(Instant.now());
 
                 appServicesRepository.save(appService);
-                log.info("Saved service details for: {}", service.optString("label"));
             }
         } catch (Exception e) {
-            log.error("Error processing services response", e);
             return "[]";
         }
-        log.info("Completed processing services");
         return response;
     }
 }
