@@ -26,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class StatsService {
 
-    private static final Logger log = LoggerFactory.getLogger(StatsService.class);
+    private static final Logger log = LoggerFactory.getLogger(StatsService.class); // TODO : remove when done
 
     @Autowired
     private RestTemplate restTemplate;
