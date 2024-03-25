@@ -52,7 +52,7 @@ public class StatsController {
         return statsService.getInstanaHealth();
     }
 
-    @GetMapping("/api/fetch-and-post-website-metrics")
+    @GetMapping("/api/website-metrics")
     public String getWebsiteMetrics() throws JSONException {
         return statsService.getWebsiteMetrics();
     }

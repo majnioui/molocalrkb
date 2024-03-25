@@ -40,6 +40,6 @@ export class StatsService {
   }
 
   getWebsiteMetrics(): Observable<any> {
-    return this.http.get<any>('/api/fetch-and-post-website-metrics');
+    return this.http.get<any>('/api/website-metrics');
   }
 }
