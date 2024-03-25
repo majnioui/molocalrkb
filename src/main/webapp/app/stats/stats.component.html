@@ -35,10 +35,10 @@
     <tbody>
       <tr *ngFor="let site of websiteMetrics">
         <td>{{ site.name }}</td>
-        <td>{{ site.metrics.metrics['cumulativeLayoutShift.sum'][0][1] || 'N/A' }}</td>
-        <td>{{ site.metrics.metrics['pageViews.sum'][0][1] || 'N/A' }}</td>
-        <td>{{ site.metrics.metrics['pageLoads.sum'][0][1] || 'N/A' }}</td>
-        <td>{{ site.metrics.metrics['beaconDuration.mean'][0]?.[1] || 'N/A' }}ms</td>
+        <td>{{ site.metrics['cumulativeLayoutShift.sum'] || 'N/A' }}</td>
+        <td>{{ site.metrics['pageViews.sum'] || 'N/A' }}</td>
+        <td>{{ site.metrics['pageLoads.sum'] || 'N/A' }}</td>
+        <td>{{ site.metrics['beaconDuration.mean'] || 'N/A' }}ms</td>
       </tr>
     </tbody>
   </table>
