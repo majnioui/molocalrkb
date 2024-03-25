@@ -129,6 +129,21 @@ public class WebsitesResource {
                 if (websites.getWebsiteId() != null) {
                     existingWebsites.setWebsiteId(websites.getWebsiteId());
                 }
+                if (websites.getCls() != null) {
+                    existingWebsites.setCls(websites.getCls());
+                }
+                if (websites.getPageViews() != null) {
+                    existingWebsites.setPageViews(websites.getPageViews());
+                }
+                if (websites.getPageLoads() != null) {
+                    existingWebsites.setPageLoads(websites.getPageLoads());
+                }
+                if (websites.getOnLoadTime() != null) {
+                    existingWebsites.setOnLoadTime(websites.getOnLoadTime());
+                }
+                if (websites.getDate() != null) {
+                    existingWebsites.setDate(websites.getDate());
+                }
 
                 return existingWebsites;
             })

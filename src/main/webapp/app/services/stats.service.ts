@@ -8,10 +8,6 @@ export class StatsService {
 
   constructor(private http: HttpClient) {}
 
-  getWebsiteMonitoringConfig(): Observable<any> {
-    return this.http.get(this.resourceUrl);
-  }
-
   getHostAgentDetails(): Observable<any> {
     return this.http.get('/api/host-agent');
   }
@@ -41,5 +37,9 @@ export class StatsService {
   }
   getInstanaHealth(): Observable<any> {
     return this.http.get('/api/instana-health');
+  }
+
+  getWebsiteMetrics(): Observable<any> {
+    return this.http.get<any>('/api/fetch-and-post-website-metrics');
   }
 }

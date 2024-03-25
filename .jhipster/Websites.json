@@ -9,6 +9,26 @@
     {
       "fieldName": "websiteId",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "cls",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pageViews",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pageLoads",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "onLoadTime",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant"
     }
   ],
   "name": "Websites",

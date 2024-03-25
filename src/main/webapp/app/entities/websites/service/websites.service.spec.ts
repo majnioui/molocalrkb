@@ -4,10 +4,11 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { IWebsites } from '../websites.model';
 import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../websites.test-samples';
 
-import { WebsitesService } from './websites.service';
+import { WebsitesService, RestWebsites } from './websites.service';
 
-const requireRestSample: IWebsites = {
+const requireRestSample: RestWebsites = {
   ...sampleWithRequiredData,
+  date: sampleWithRequiredData.date?.toJSON(),
 };
 
 describe('Websites Service', () => {

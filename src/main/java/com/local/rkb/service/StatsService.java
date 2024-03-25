@@ -138,11 +138,6 @@ public class StatsService {
         }
     }
 
-    public String getWebsiteMonitoringConfig() {
-        String endpoint = "/api/website-monitoring/config";
-        return makeGetRequest(endpoint);
-    }
-
     // method to fetch host agent details
     public String getHostAgentDetails() {
         try {
@@ -261,5 +256,90 @@ public class StatsService {
             return "[]";
         }
         return response;
+    }
+
+    public String getWebsiteMetrics() {
+        String configEndpoint = "/api/website-monitoring/config";
+        log.info("Fetching website monitoring config from {}", configEndpoint);
+        String configResponse = makeGetRequest(configEndpoint);
+        JSONArray responseSummary = new JSONArray();
+        try {
+            JSONArray websites = new JSONArray(configResponse);
+            log.info("Received {} websites for metrics collection", websites.length());
+
+            for (int i = 0; i < websites.length(); i++) {
+                JSONObject website = websites.getJSONObject(i);
+                String websiteName = website.optString("name");
+                log.info("Processing website: {}", websiteName);
+
+                JSONObject payload = prepareMetricsPayload(websiteName);
+                String metricsEndpoint = "/api/website-monitoring/v2/metrics";
+                log.info("Posting metrics for website: {}", websiteName);
+                String postResponse = makePostRequest(metricsEndpoint, payload.toString());
+                JSONObject metricsResponse = new JSONObject(postResponse);
+
+                log.info("Received metrics for website: {}", websiteName);
+                // Compile each website's name and metrics into a structured object
+                JSONObject websiteMetrics = new JSONObject();
+                websiteMetrics.put("name", websiteName);
+                websiteMetrics.put("metrics", metricsResponse);
+
+                // Add to the summary array
+                responseSummary.put(websiteMetrics);
+            }
+        } catch (Exception e) {
+            log.error("Error processing website metrics", e);
+            // In case of error, return an empty array or a meaningful error message as JSON
+            return new JSONArray().toString();
+        }
+        log.info("Completed metrics collection for all websites");
+        return responseSummary.toString();
+    }
+
+    private JSONObject prepareMetricsPayload(String websiteName) {
+        log.info("Preparing metrics payload for website: {}", websiteName);
+        String payloadTemplate =
+            """
+            {
+            "metrics": [
+                {
+                "metric": "beaconDuration",
+                "aggregation": "MEAN"
+                },
+                {
+                "metric": "pageLoads",
+                "aggregation": "SUM"
+                },
+                {
+                "metric": "pageViews",
+                "aggregation": "SUM"
+                },
+                {
+                "metric": "cumulativeLayoutShift",
+                "aggregation": "SUM"
+                }
+            ],
+            "tagFilterExpression": {
+                "type": "EXPRESSION",
+                "logicalOperator": "AND",
+                "elements": [
+                {
+                    "type": "TAG_FILTER",
+                    "name": "beacon.website.name",
+                    "operator": "EQUALS",
+                    "entity": "NOT_APPLICABLE",
+                    "value": "%s"
+                }
+                ]
+            },
+            "timeFrame": {
+                "to": null,
+                "windowSize": 3600000
+            },
+            "type": "PAGELOAD"
+            }
+            """.formatted(websiteName);
+
+        return new JSONObject(payloadTemplate);
     }
 }

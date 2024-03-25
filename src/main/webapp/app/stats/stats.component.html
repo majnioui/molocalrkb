@@ -19,13 +19,31 @@
   </tbody>
 </table>
 
-<!-- Websites Section -->
-<p class="section-title">Websites</p>
-<div *ngIf="websites">
-  <div *ngFor="let website of websites">
-    <p class="field">{{ website.appName }}</p>
-  </div>
+<!-- Website Metrics Section -->
+<p class="section-title">Website Metrics</p>
+<div *ngIf="websiteMetrics && websiteMetrics.length > 0; else noMetrics">
+  <table class="events-table">
+    <thead>
+      <tr>
+        <th>Website</th>
+        <th>Cumulative Layout Shift</th>
+        <th>Page Views</th>
+        <th>Page Loads</th>
+        <th>onLoad Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let site of websiteMetrics">
+        <td>{{ site.name }}</td>
+        <td>{{ site.metrics.metrics['cumulativeLayoutShift.sum'][0][1] || 'N/A' }}</td>
+        <td>{{ site.metrics.metrics['pageViews.sum'][0][1] || 'N/A' }}</td>
+        <td>{{ site.metrics.metrics['pageLoads.sum'][0][1] || 'N/A' }}</td>
+        <td>{{ site.metrics.metrics['beaconDuration.mean'][0]?.[1] || 'N/A' }}ms</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+<ng-template #noMetrics><p>No website metrics found.</p></ng-template>
 
 <!-- Services Section -->
 <p class="section-title">Services</p>
