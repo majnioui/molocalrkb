@@ -9,8 +9,6 @@ servers:
     description: Development server
   - url: https://localhost:8080/api
     description: Development server with TLS Profile
-  - url: https://majnioui.me/api
-    description: Production server
 paths: {}
 components:
   responses:
