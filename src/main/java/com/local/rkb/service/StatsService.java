@@ -325,7 +325,7 @@ public class StatsService {
         } catch (Exception e) {
             log.error("Error extracting metric for key: " + key, e);
         }
-        return ""; // Return an empty string in case of metric not found/errors
+        return ""; // Return an empty string in case of metric not found/errors.
     }
 
     private JSONObject prepareMetricsPayload(String websiteName) {
