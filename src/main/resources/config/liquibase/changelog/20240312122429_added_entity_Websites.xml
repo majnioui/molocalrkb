@@ -20,8 +20,24 @@
             <column name="website_id" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="cls" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="page_views" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="page_loads" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="on_load_time" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="date" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
+        <dropDefaultValue tableName="websites" columnName="date" columnDataType="${datetimeType}"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -43,6 +59,11 @@
             <column name="id" type="numeric"/>
             <column name="website" type="string"/>
             <column name="website_id" type="string"/>
+            <column name="cls" type="string"/>
+            <column name="page_views" type="string"/>
+            <column name="page_loads" type="string"/>
+            <column name="on_load_time" type="string"/>
+            <column name="date" type="date"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

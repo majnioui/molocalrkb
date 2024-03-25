@@ -22,6 +22,26 @@
         <dd>
           <span>{{ websites.websiteId }}</span>
         </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.websites.cls">Cls</span></dt>
+        <dd>
+          <span>{{ websites.cls }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.websites.pageViews">Page Views</span></dt>
+        <dd>
+          <span>{{ websites.pageViews }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.websites.pageLoads">Page Loads</span></dt>
+        <dd>
+          <span>{{ websites.pageLoads }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.websites.onLoadTime">On Load Time</span></dt>
+        <dd>
+          <span>{{ websites.onLoadTime }}</span>
+        </dd>
+        <dt><span jhiTranslate="moLocalrKbApp.websites.date">Date</span></dt>
+        <dd>
+          <span>{{ websites.date | formatMediumDatetime }}</span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

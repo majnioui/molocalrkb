@@ -2,6 +2,7 @@ package com.local.rkb.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,6 +28,21 @@ public class Websites implements Serializable {
 
     @Column(name = "website_id")
     private String websiteId;
+
+    @Column(name = "cls")
+    private String cls;
+
+    @Column(name = "page_views")
+    private String pageViews;
+
+    @Column(name = "page_loads")
+    private String pageLoads;
+
+    @Column(name = "on_load_time")
+    private String onLoadTime;
+
+    @Column(name = "date")
+    private Instant date;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -69,6 +85,71 @@ public class Websites implements Serializable {
         this.websiteId = websiteId;
     }
 
+    public String getCls() {
+        return this.cls;
+    }
+
+    public Websites cls(String cls) {
+        this.setCls(cls);
+        return this;
+    }
+
+    public void setCls(String cls) {
+        this.cls = cls;
+    }
+
+    public String getPageViews() {
+        return this.pageViews;
+    }
+
+    public Websites pageViews(String pageViews) {
+        this.setPageViews(pageViews);
+        return this;
+    }
+
+    public void setPageViews(String pageViews) {
+        this.pageViews = pageViews;
+    }
+
+    public String getPageLoads() {
+        return this.pageLoads;
+    }
+
+    public Websites pageLoads(String pageLoads) {
+        this.setPageLoads(pageLoads);
+        return this;
+    }
+
+    public void setPageLoads(String pageLoads) {
+        this.pageLoads = pageLoads;
+    }
+
+    public String getOnLoadTime() {
+        return this.onLoadTime;
+    }
+
+    public Websites onLoadTime(String onLoadTime) {
+        this.setOnLoadTime(onLoadTime);
+        return this;
+    }
+
+    public void setOnLoadTime(String onLoadTime) {
+        this.onLoadTime = onLoadTime;
+    }
+
+    public Instant getDate() {
+        return this.date;
+    }
+
+    public Websites date(Instant date) {
+        this.setDate(date);
+        return this;
+    }
+
+    public void setDate(Instant date) {
+        this.date = date;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -95,6 +176,11 @@ public class Websites implements Serializable {
             "id=" + getId() +
             ", website='" + getWebsite() + "'" +
             ", websiteId='" + getWebsiteId() + "'" +
+            ", cls='" + getCls() + "'" +
+            ", pageViews='" + getPageViews() + "'" +
+            ", pageLoads='" + getPageLoads() + "'" +
+            ", onLoadTime='" + getOnLoadTime() + "'" +
+            ", date='" + getDate() + "'" +
             "}";
     }
 }

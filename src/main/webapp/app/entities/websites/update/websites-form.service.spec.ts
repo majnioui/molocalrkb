@@ -22,6 +22,11 @@ describe('Websites Form Service', () => {
             id: expect.any(Object),
             website: expect.any(Object),
             websiteId: expect.any(Object),
+            cls: expect.any(Object),
+            pageViews: expect.any(Object),
+            pageLoads: expect.any(Object),
+            onLoadTime: expect.any(Object),
+            date: expect.any(Object),
           }),
         );
       });
@@ -34,6 +39,11 @@ describe('Websites Form Service', () => {
             id: expect.any(Object),
             website: expect.any(Object),
             websiteId: expect.any(Object),
+            cls: expect.any(Object),
+            pageViews: expect.any(Object),
+            pageLoads: expect.any(Object),
+            onLoadTime: expect.any(Object),
+            date: expect.any(Object),
           }),
         );
       });

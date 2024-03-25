@@ -7,7 +7,6 @@ import { StatsService } from '../services/stats.service';
   styleUrls: ['./stats.component.scss'],
 })
 export class StatsComponent implements OnInit {
-  websites: any;
   hostAgentDetails: any = {
     data: {
       memory: {},
@@ -20,6 +19,7 @@ export class StatsComponent implements OnInit {
   instanaVersion: any;
   instanaHealth: any;
   servicesData: any[] = [];
+  websiteMetrics: any[] = [];
 
   constructor(
     private statsService: StatsService,
@@ -27,9 +27,6 @@ export class StatsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.statsService.getWebsiteMonitoringConfig().subscribe(data => {
-      this.websites = data;
-    });
     this.statsService.getHostAgentDetails().subscribe(response => {
       if (response && response.items && response.items.length > 0) {
         this.hostAgentDetails = response.items[0];
@@ -102,6 +99,18 @@ export class StatsComponent implements OnInit {
     this.statsService.getInstanaHealth().subscribe(health => {
       this.instanaHealth = health;
     });
+
+    // Fetch websites metrics
+    this.statsService.getWebsiteMetrics().subscribe(
+      data => {
+        console.log(data);
+        this.websiteMetrics = data;
+        this.cdr.detectChanges();
+      },
+      error => {
+        console.error('Failed to fetch website metrics:', error);
+      },
+    );
   }
 
   // get health status as emojis

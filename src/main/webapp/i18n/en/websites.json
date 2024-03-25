@@ -19,7 +19,12 @@
       },
       "id": "ID",
       "website": "Website",
-      "websiteId": "Website Id"
+      "websiteId": "Website Id",
+      "cls": "Cls",
+      "pageViews": "Page Views",
+      "pageLoads": "Page Loads",
+      "onLoadTime": "On Load Time",
+      "date": "Date"
     }
   }
 }

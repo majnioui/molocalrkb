@@ -50,6 +50,36 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="cls">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.websites.cls">Cls</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="pageViews">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.websites.pageViews">Page Views</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="pageLoads">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.websites.pageLoads">Page Loads</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="onLoadTime">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.websites.onLoadTime">On Load Time</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="date">
+            <div class="d-flex">
+              <span jhiTranslate="moLocalrKbApp.websites.date">Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -60,6 +90,11 @@
           </td>
           <td>{{ websites.website }}</td>
           <td>{{ websites.websiteId }}</td>
+          <td>{{ websites.cls }}</td>
+          <td>{{ websites.pageViews }}</td>
+          <td>{{ websites.pageLoads }}</td>
+          <td>{{ websites.onLoadTime }}</td>
+          <td>{{ websites.date | formatMediumDatetime }}</td>
           <td class="text-end">
             <div class="btn-group">
               <a [routerLink]="['/websites', websites.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

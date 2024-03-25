@@ -1,17 +1,29 @@
+import dayjs from 'dayjs/esm';
+
 import { IWebsites, NewWebsites } from './websites.model';
 
 export const sampleWithRequiredData: IWebsites = {
-  id: 5672,
+  id: 10259,
 };
 
 export const sampleWithPartialData: IWebsites = {
-  id: 1277,
+  id: 19043,
+  website: 'green until',
+  pageViews: 'cheek',
+  pageLoads: 'parched who ha',
+  onLoadTime: 'off',
+  date: dayjs('2024-03-12T10:25'),
 };
 
 export const sampleWithFullData: IWebsites = {
-  id: 2187,
-  website: 'yowza',
-  websiteId: 'proper save',
+  id: 19467,
+  website: 'solemnly daily',
+  websiteId: 'gift hm runny',
+  cls: 'however',
+  pageViews: 'er',
+  pageLoads: 'bah',
+  onLoadTime: 'obediently save',
+  date: dayjs('2024-03-11T20:44'),
 };
 
 export const sampleWithNewData: NewWebsites = {
