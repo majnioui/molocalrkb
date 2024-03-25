@@ -3,9 +3,11 @@ package com.local.rkb.service;
 import com.local.rkb.domain.AgentIssues;
 import com.local.rkb.domain.AppServices;
 import com.local.rkb.domain.Instana;
+import com.local.rkb.domain.Websites;
 import com.local.rkb.repository.AgentIssuesRepository;
 import com.local.rkb.repository.AppServicesRepository;
 import com.local.rkb.repository.InstanaRepository;
+import com.local.rkb.repository.WebsitesRepository;
 import jakarta.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -52,6 +54,9 @@ public class StatsService {
 
     @Autowired
     private AppServicesRepository appServicesRepository;
+
+    @Autowired
+    private WebsitesRepository websitesRepository;
 
     @PostConstruct
     public void init() {
@@ -260,44 +265,70 @@ public class StatsService {
 
     public String getWebsiteMetrics() {
         String configEndpoint = "/api/website-monitoring/config";
-        log.info("Fetching website monitoring config from {}", configEndpoint);
         String configResponse = makeGetRequest(configEndpoint);
         JSONArray responseSummary = new JSONArray();
         try {
             JSONArray websites = new JSONArray(configResponse);
-            log.info("Received {} websites for metrics collection", websites.length());
 
             for (int i = 0; i < websites.length(); i++) {
-                JSONObject website = websites.getJSONObject(i);
-                String websiteName = website.optString("name");
-                log.info("Processing website: {}", websiteName);
+                JSONObject websiteJson = websites.getJSONObject(i);
+                String websiteName = websiteJson.optString("name");
+                String websiteId = websiteJson.optString("id");
 
                 JSONObject payload = prepareMetricsPayload(websiteName);
                 String metricsEndpoint = "/api/website-monitoring/v2/metrics";
-                log.info("Posting metrics for website: {}", websiteName);
                 String postResponse = makePostRequest(metricsEndpoint, payload.toString());
                 JSONObject metricsResponse = new JSONObject(postResponse);
+                JSONObject metrics = metricsResponse.getJSONObject("metrics");
 
-                log.info("Received metrics for website: {}", websiteName);
-                // Compile each website's name and metrics into a structured object
+                Websites website = new Websites();
+                website.setWebsite(websiteName);
+                website.setWebsiteId(websiteId);
+
+                // Directly extract and convert metric values to String
+                website.setCls(getMetricValueAsString(metrics, "cumulativeLayoutShift.sum"));
+                website.setPageViews(getMetricValueAsString(metrics, "pageViews.sum"));
+                website.setPageLoads(getMetricValueAsString(metrics, "pageLoads.sum"));
+                website.setOnLoadTime(getMetricValueAsString(metrics, "beaconDuration.mean"));
+
+                website.setDate(Instant.now());
+                websitesRepository.save(website);
+
+                // Compile response data
                 JSONObject websiteMetrics = new JSONObject();
                 websiteMetrics.put("name", websiteName);
-                websiteMetrics.put("metrics", metricsResponse);
+                JSONObject metricsData = new JSONObject();
+                metricsData.put("cumulativeLayoutShift.sum", website.getCls());
+                metricsData.put("pageViews.sum", website.getPageViews());
+                metricsData.put("pageLoads.sum", website.getPageLoads());
+                metricsData.put("beaconDuration.mean", website.getOnLoadTime());
+                websiteMetrics.put("metrics", metricsData);
 
-                // Add to the summary array
                 responseSummary.put(websiteMetrics);
             }
         } catch (Exception e) {
-            log.error("Error processing website metrics", e);
-            // In case of error, return an empty array or a meaningful error message as JSON
             return new JSONArray().toString();
         }
-        log.info("Completed metrics collection for all websites");
-        return responseSummary.toString();
+        return responseSummary.toString(); // Return the constructed response
+    }
+
+    private String getMetricValueAsString(JSONObject metrics, String key) {
+        try {
+            JSONArray metricArray = metrics.optJSONArray(key);
+            if (metricArray != null && metricArray.length() > 0) {
+                JSONArray valueArray = metricArray.optJSONArray(0);
+                if (valueArray != null && valueArray.length() > 1) {
+                    Object value = valueArray.opt(1);
+                    return value != null ? value.toString() : "";
+                }
+            }
+        } catch (Exception e) {
+            log.error("Error extracting metric for key: " + key, e);
+        }
+        return ""; // Return an empty string in case of metric not found/errors
     }
 
     private JSONObject prepareMetricsPayload(String websiteName) {
-        log.info("Preparing metrics payload for website: {}", websiteName);
         String payloadTemplate =
             """
             {

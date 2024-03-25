@@ -103,7 +103,6 @@ export class StatsComponent implements OnInit {
     // Fetch websites metrics
     this.statsService.getWebsiteMetrics().subscribe(
       data => {
-        console.log(data);
         this.websiteMetrics = data;
         this.cdr.detectChanges();
       },
