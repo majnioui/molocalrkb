@@ -134,3 +134,67 @@ p {
     padding: 2px 0;
   }
 }
+.website-metrics-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Adjust the space between cards */
+}
+
+.metric-card {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px; /* space between header and metrics */
+}
+
+.goto-page-btn {
+  font-size: 41px;
+  background: transparent;
+  border: transparent;
+  background-color: transparent;
+}
+
+.website-name {
+  font-weight: bold;
+}
+
+.metric-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.metric-title {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.metric-value {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .website-metrics-container {
+    flex-direction: column;
+  }
+
+  .metric-content {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
