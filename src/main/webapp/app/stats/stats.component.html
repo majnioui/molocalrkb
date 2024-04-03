@@ -20,28 +20,33 @@
 </table>
 
 <!-- Website Metrics Section -->
-<p class="section-title">Website Metrics</p>
-<div *ngIf="websiteMetrics && websiteMetrics.length > 0; else noMetrics">
-  <table class="events-table">
-    <thead>
-      <tr>
-        <th>Website</th>
-        <th>Cumulative Layout Shift</th>
-        <th>Page Views</th>
-        <th>Page Loads</th>
-        <th>onLoad Time</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let site of websiteMetrics">
-        <td>{{ site.name }}</td>
-        <td>{{ site.metrics['cumulativeLayoutShift.sum'] || 'N/A' }}</td>
-        <td>{{ site.metrics['pageViews.sum'] || 'N/A' }}</td>
-        <td>{{ site.metrics['pageLoads.sum'] || 'N/A' }}</td>
-        <td>{{ site.metrics['beaconDuration.mean'] || 'N/A' }}ms</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="website-metrics-container">
+  <div *ngFor="let site of websiteMetrics" class="metric-card">
+    <div class="metric-content">
+      <div class="metric">
+        <span class="website-name">{{ site.name }}</span>
+      </div>
+      <div class="metric">
+        <span class="metric-title">Page Load</span>
+        <span class="metric-value">{{ site.metrics['pageLoads.sum'] || 'N/A' }}</span>
+      </div>
+      <div class="metric">
+        <span class="metric-title">Load Time Average</span>
+        <span class="metric-value">{{ site.metrics['onLoadTime.mean'] | number: '1.2-2' || 'N/A' }} ms</span>
+      </div>
+      <div class="metric">
+        <span class="metric-title">Load Time 90th</span>
+        <span class="metric-value">{{ site.metrics['onLoadTime.p90'] || 'N/A' }} ms</span>
+      </div>
+      <div class="metric">
+        <span class="metric-title">Load Time 95th</span>
+        <span class="metric-value">{{ site.metrics['onLoadTime.p95'] || 'N/A' }} ms</span>
+      </div>
+      <div class="metric">
+        <button (click)="openWebsiteSummary(site.id)" class="goto-page-btn">→</button>
+      </div>
+    </div>
+  </div>
 </div>
 <ng-template #noMetrics><p>No website metrics found.</p></ng-template>
 

@@ -9,8 +9,6 @@ import com.local.rkb.repository.AppServicesRepository;
 import com.local.rkb.repository.InstanaRepository;
 import com.local.rkb.repository.WebsitesRepository;
 import jakarta.annotation.PostConstruct;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.time.Instant;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -69,50 +67,6 @@ public class StatsService {
             if (Instana != null) {
                 this.apiToken = Instana.getApitoken();
             }
-        }
-
-        // Only find and extract baseUrl if it's not already set via environment variable
-        if (this.baseUrl.isEmpty()) {
-            String settingsFilePath = findSettingsHclFilePath();
-            if (settingsFilePath == null || settingsFilePath.isEmpty()) {
-                // Fallback to URL from Instana if available and no settings file found
-                Instana Instana = InstanaRepository.findTopByOrderByIdDesc();
-                if (Instana != null) {
-                    this.baseUrl = Instana.getBaseurl();
-                }
-            } else {
-                this.baseUrl = extractBaseUrlFromSettingsHcl(settingsFilePath);
-            }
-        }
-    }
-
-    private String findSettingsHclFilePath() {
-        try {
-            Process process = new ProcessBuilder(
-                "/bin/sh",
-                "-c",
-                "find " +
-                settingsHclSearchPath +
-                " -type f -name \"settings.hcl\" 2>/dev/null | awk '{print length, $0}' | sort -n | cut -d\" \" -f2- | head -n 1"
-            )
-                .start();
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                return reader.readLine();
-            }
-        } catch (Exception e) {
-            return "";
-        }
-    }
-
-    private String extractBaseUrlFromSettingsHcl(String filePath) {
-        try {
-            Process process = new ProcessBuilder("/bin/sh", "-c", "grep 'host_name' " + filePath + " | cut -d'=' -f2 | tr -d '\" '")
-                .start();
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                return reader.readLine();
-            }
-        } catch (Exception e) {
-            return "";
         }
     }
 
@@ -286,10 +240,8 @@ public class StatsService {
                 website.setWebsiteId(websiteId);
 
                 // Directly extract and convert metric values to String
-                website.setCls(getMetricValueAsString(metrics, "cumulativeLayoutShift.sum"));
-                website.setPageViews(getMetricValueAsString(metrics, "pageViews.sum"));
                 website.setPageLoads(getMetricValueAsString(metrics, "pageLoads.sum"));
-                website.setOnLoadTime(getMetricValueAsString(metrics, "beaconDuration.mean"));
+                website.setOnLoadTime(getMetricValueAsString(metrics, "onLoadTime.mean"));
 
                 website.setDate(Instant.now());
                 websitesRepository.save(website);
@@ -297,11 +249,13 @@ public class StatsService {
                 // Compile response data
                 JSONObject websiteMetrics = new JSONObject();
                 websiteMetrics.put("name", websiteName);
+                websiteMetrics.put("id", websiteId);
                 JSONObject metricsData = new JSONObject();
-                metricsData.put("cumulativeLayoutShift.sum", website.getCls());
-                metricsData.put("pageViews.sum", website.getPageViews());
-                metricsData.put("pageLoads.sum", website.getPageLoads());
-                metricsData.put("beaconDuration.mean", website.getOnLoadTime());
+                metricsData.put("pageLoads.sum", getMetricValueAsString(metrics, "pageLoads.sum"));
+                metricsData.put("onLoadTime.mean", getMetricValueAsString(metrics, "onLoadTime.mean"));
+                // Adding onLoadTime.p90 and onLoadTime.p95 (not saving them to the DB for now)
+                metricsData.put("onLoadTime.p90", getMetricValueAsString(metrics, "onLoadTime.p90"));
+                metricsData.put("onLoadTime.p95", getMetricValueAsString(metrics, "onLoadTime.p95"));
                 websiteMetrics.put("metrics", metricsData);
 
                 responseSummary.put(websiteMetrics);
@@ -309,7 +263,7 @@ public class StatsService {
         } catch (Exception e) {
             return new JSONArray().toString();
         }
-        return responseSummary.toString(); // Return the constructed response
+        return responseSummary.toString();
     }
 
     private String getMetricValueAsString(JSONObject metrics, String key) {
@@ -334,19 +288,19 @@ public class StatsService {
             {
             "metrics": [
                 {
-                "metric": "beaconDuration",
+                "metric": "onLoadTime",
                 "aggregation": "MEAN"
                 },
                 {
+                "metric": "onLoadTime",
+                "aggregation": "P90"
+                },
+                {
+                "metric": "onLoadTime",
+                "aggregation": "P95"
+                },
+                {
                 "metric": "pageLoads",
-                "aggregation": "SUM"
-                },
-                {
-                "metric": "pageViews",
-                "aggregation": "SUM"
-                },
-                {
-                "metric": "cumulativeLayoutShift",
                 "aggregation": "SUM"
                 }
             ],

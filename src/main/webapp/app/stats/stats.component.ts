@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { StatsService } from '../services/stats.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-stats',
@@ -24,6 +25,7 @@ export class StatsComponent implements OnInit {
   constructor(
     private statsService: StatsService,
     private cdr: ChangeDetectorRef,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -124,5 +126,10 @@ export class StatsComponent implements OnInit {
       default:
         return healthStatus;
     }
+  }
+
+  openWebsiteSummary(websiteId: string) {
+    const url = `https://olive-hera0x203o.instana.io/#/websiteMonitoring/website;websiteId=${websiteId}/summary`;
+    window.open(url, '_blank');
   }
 }
