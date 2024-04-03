@@ -1,25 +1,16 @@
-<!-- Version & Health Table -->
-<p class="section-title">Instana Health and Version</p>
-<table *ngIf="instanaVersion || instanaHealth" class="table">
-  <tbody>
-    <!-- Instana Version -->
-    <tr *ngIf="instanaVersion">
-      <td>Version</td>
-      <td>{{ instanaVersion.branch }}</td>
-    </tr>
-    <!-- Instana Health -->
-    <tr *ngIf="instanaHealth">
-      <td>Health Status</td>
-      <td>{{ getHealthStatusEmoji(instanaHealth.health) }}</td>
-    </tr>
-    <tr *ngIf="instanaHealth && instanaHealth.messages">
-      <td>Health Messages</td>
-      <td>{{ instanaHealth.messages }}</td>
-    </tr>
-  </tbody>
-</table>
-
 <!-- Website Metrics Section -->
+<p class="section-title">Websites</p>
+<div class="timeframe-selector">
+  <select #timeFrameSelect (change)="updateMetricsTimeFrame(timeFrameSelect.value)">
+    <option value="300000">Last 5 minutes</option>
+    <option value="3600000">Last hour</option>
+    <option value="21600000">Last 6 hours</option>
+    <option value="43200000">Last 12 hours</option>
+    <option value="86400000">Last 24 hours</option>
+    <option value="172800000">Last two days</option>
+    <option value="604800000">Last 7 days</option>
+  </select>
+</div>
 <div class="website-metrics-container">
   <div *ngFor="let site of websiteMetrics" class="metric-card">
     <div class="metric-content">
@@ -49,6 +40,79 @@
   </div>
 </div>
 <ng-template #noMetrics><p>No website metrics found.</p></ng-template>
+
+<!-- Events Section -->
+<p class="section-title">Events</p>
+<div class="selectors-container">
+  <div class="event-type-selector">
+    <p>Events filter:</p>
+    <select #eventTypeSelect (change)="updateEventsTimeFrame(eventTimeFrameSelect.value, eventTypeSelect.value)">
+      <option value="CHANGE">Change</option>
+      <option value="INCIDENT">Incident</option>
+      <option value="ISSUE">Issue</option>
+    </select>
+  </div>
+  <div class="timeframe-selector">
+    <select #eventTimeFrameSelect (change)="updateEventsTimeFrame(eventTimeFrameSelect.value, eventTypeSelect.value)">
+      <option value="300000">Last 5 minutes</option>
+      <option value="3600000">Last hour</option>
+      <option value="21600000">Last 6 hours</option>
+      <option value="43200000">Last 12 hours</option>
+      <option value="86400000">Last 24 hours</option>
+      <option value="172800000">Last two days</option>
+      <option value="604800000">Last 7 days</option>
+    </select>
+  </div>
+</div>
+
+<div *ngIf="eventsData && eventsData.length > 0; else noEvents">
+  <table class="events-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>On</th>
+        <th>Detail</th>
+        <th>Started</th>
+        <th>End</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of eventsData">
+        <td>{{ event.problem }}</td>
+        <td>{{ event.entityLabel }}</td>
+        <td>{{ event.detail }}</td>
+        <td>{{ event.start | date: 'medium' }}</td>
+        <td>{{ event.end | date: 'medium' }}</td>
+        <td>
+          <button (click)="openEventLink(event.eventId)" class="goto-page-btn">→</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noEvents><p>No events found.</p></ng-template>
+
+<!-- Version & Health Table -->
+<p class="section-title">Instana Health and Version</p>
+<table *ngIf="instanaVersion || instanaHealth" class="table">
+  <tbody>
+    <!-- Instana Version -->
+    <tr *ngIf="instanaVersion">
+      <td>Version</td>
+      <td>{{ instanaVersion.branch }}</td>
+    </tr>
+    <!-- Instana Health -->
+    <tr *ngIf="instanaHealth">
+      <td>Health Status</td>
+      <td>{{ getHealthStatusEmoji(instanaHealth.health) }}</td>
+    </tr>
+    <tr *ngIf="instanaHealth && instanaHealth.messages">
+      <td>Health Messages</td>
+      <td>{{ instanaHealth.messages }}</td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- Services Section -->
 <p class="section-title">Services</p>
@@ -194,40 +258,6 @@
   </table>
 </div>
 <ng-template #noTopology><p>No topology data found.</p></ng-template>
-
-<!-- Events Section -->
-<p class="section-title">Events</p>
-<div *ngIf="eventsData && eventsData.length > 0; else noEvents">
-  <table class="events-table">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>State</th>
-        <th>Problem</th>
-        <th>Detail</th>
-        <th>Severity</th>
-        <th>Entity Name</th>
-        <th>Entity Label</th>
-        <th>Entity Type</th>
-        <th>Fix Suggestion</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let event of eventsData">
-        <td>{{ event.type }}</td>
-        <td>{{ event.state }}</td>
-        <td>{{ event.problem }}</td>
-        <td>{{ event.detail }}</td>
-        <td>{{ event.severity }}</td>
-        <td>{{ event.entityName }}</td>
-        <td>{{ event.entityLabel }}</td>
-        <td>{{ event.entityType }}</td>
-        <td>{{ event.fixSuggestion }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<ng-template #noEvents><p>No events found.</p></ng-template>
 
 <!-- Agent Related Issues Section -->
 <p class="section-title">Agent Related Issues</p>

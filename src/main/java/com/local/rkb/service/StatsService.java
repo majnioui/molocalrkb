@@ -138,8 +138,8 @@ public class StatsService {
         return makeGetRequest(endpoint);
     }
 
-    public String getAllEvents() {
-        String endpoint = "/api/events?windowSize=86400000";
+    public String getAllEvents(long windowSize, String eventTypeFilters) {
+        String endpoint = "/api/events?windowSize=" + windowSize + "&eventTypeFilters=" + eventTypeFilters;
         return makeGetRequest(endpoint);
     }
 
@@ -223,7 +223,7 @@ public class StatsService {
         return response;
     }
 
-    public String getWebsiteMetrics() {
+    public String getWebsiteMetrics(long windowSize) {
         String configEndpoint = "/api/website-monitoring/config";
         String configResponse = makeGetRequest(configEndpoint);
         JSONArray responseSummary = new JSONArray();
@@ -235,7 +235,7 @@ public class StatsService {
                 String websiteName = websiteJson.optString("name");
                 String websiteId = websiteJson.optString("id");
 
-                JSONObject payload = prepareMetricsPayload(websiteName);
+                JSONObject payload = prepareMetricsPayload(websiteName, windowSize);
                 String metricsEndpoint = "/api/website-monitoring/v2/metrics";
                 String postResponse = makePostRequest(metricsEndpoint, payload.toString());
                 JSONObject metricsResponse = new JSONObject(postResponse);
@@ -288,7 +288,9 @@ public class StatsService {
         return ""; // Return an empty string in case of metric not found/errors.
     }
 
-    private JSONObject prepareMetricsPayload(String websiteName) {
+    private JSONObject prepareMetricsPayload(String websiteName, long windowSize) {
+        long to = System.currentTimeMillis();
+
         String payloadTemplate =
             """
             {
@@ -324,12 +326,12 @@ public class StatsService {
                 ]
             },
             "timeFrame": {
-                "to": null,
-                "windowSize": 3600000
+                "to": %d,
+                "windowSize": %d
             },
             "type": "PAGELOAD"
             }
-            """.formatted(websiteName);
+            """.formatted(websiteName, to, windowSize);
 
         return new JSONObject(payloadTemplate);
     }

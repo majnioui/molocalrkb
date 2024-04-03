@@ -29,6 +29,8 @@ export class StatsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loadWebsiteMetrics(300000);
+    this.loadEventsData(300000, 'ISSUE');
     this.statsService.getHostAgentDetails().subscribe(response => {
       if (response && response.items && response.items.length > 0) {
         this.hostAgentDetails = response.items[0];
@@ -61,16 +63,6 @@ export class StatsComponent implements OnInit {
         console.error('Failed to fetch infra topology:', error);
       },
     );
-    // Fetch all events
-    this.statsService.getAllEvents().subscribe(
-      data => {
-        this.eventsData = data;
-        this.cdr.detectChanges();
-      },
-      error => {
-        console.error('Failed to fetch all events:', error);
-      },
-    );
 
     // Fetch all services
     this.statsService.getServices().subscribe(
@@ -101,17 +93,6 @@ export class StatsComponent implements OnInit {
     this.statsService.getInstanaHealth().subscribe(health => {
       this.instanaHealth = health;
     });
-
-    // Fetch websites metrics
-    this.statsService.getWebsiteMetrics().subscribe(
-      data => {
-        this.websiteMetrics = data;
-        this.cdr.detectChanges();
-      },
-      error => {
-        console.error('Failed to fetch website metrics:', error);
-      },
-    );
   }
 
   // get health status as emojis
@@ -128,8 +109,49 @@ export class StatsComponent implements OnInit {
     }
   }
 
+  // Websites
+  updateMetricsTimeFrame(windowSize: string) {
+    // Convert windowSize to a number and reload metrics
+    this.loadWebsiteMetrics(Number(windowSize));
+  }
+
+  private loadWebsiteMetrics(windowSize: number) {
+    this.statsService.getWebsiteMetrics(windowSize).subscribe(
+      data => {
+        this.websiteMetrics = data;
+        this.cdr.detectChanges();
+      },
+      error => {
+        console.error('Failed to fetch website metrics:', error);
+      },
+    );
+  }
+
   openWebsiteSummary(websiteId: string) {
     const url = `https://olive-hera0x203o.instana.io/#/websiteMonitoring/website;websiteId=${websiteId}/summary`;
+    window.open(url, '_blank');
+  }
+
+  // All Events
+  updateEventsTimeFrame(windowSize: string, eventTypeFilters: string) {
+    const numWindowSize = Number(windowSize);
+    this.loadEventsData(numWindowSize, eventTypeFilters);
+  }
+
+  private loadEventsData(windowSize: number, eventTypeFilters: string) {
+    this.statsService.getAllEvents(windowSize, eventTypeFilters).subscribe(
+      data => {
+        this.eventsData = data;
+        this.cdr.detectChanges();
+      },
+      error => {
+        console.error('Failed to fetch all events:', error);
+      },
+    );
+  }
+
+  openEventLink(eventId: string): void {
+    const url = `https://192.168.100.108/#/events;orderDirection=DESC;orderBy=start;eventId=${eventId}`;
     window.open(url, '_blank');
   }
 }
