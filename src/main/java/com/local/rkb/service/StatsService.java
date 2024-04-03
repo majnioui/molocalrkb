@@ -41,9 +41,6 @@ public class StatsService {
     @Value("${INSTANA_API_KEY:}")
     private String instanaApiKey;
 
-    @Value("${settings.hcl.path:/home}")
-    private String settingsHclSearchPath;
-
     @Autowired
     private InstanaRepository InstanaRepository;
 
@@ -62,10 +59,19 @@ public class StatsService {
         if (!instanaApiKey.isEmpty()) {
             this.apiToken = instanaApiKey;
         } else {
-            // Retrieve the latest Instana from the database
-            Instana Instana = InstanaRepository.findTopByOrderByIdDesc();
-            if (Instana != null) {
-                this.apiToken = Instana.getApitoken();
+            // Retrieve the latest Instana from the database for apiToken
+            Instana instanaApiToken = InstanaRepository.findTopByOrderByIdDesc();
+            if (instanaApiToken != null) {
+                this.apiToken = instanaApiToken.getApitoken();
+            }
+        }
+
+        // Only find and extract baseUrl if it's not already set via environment variable
+        if (this.baseUrl.isEmpty()) {
+            // Retrieve the latest Instana from the database for baseUrl
+            Instana instanaForBaseUrl = InstanaRepository.findTopByOrderByIdDesc();
+            if (instanaForBaseUrl != null) {
+                this.baseUrl = instanaForBaseUrl.getBaseurl();
             }
         }
     }
