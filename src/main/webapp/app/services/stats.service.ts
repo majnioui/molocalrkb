@@ -20,8 +20,13 @@ export class StatsService {
     return this.http.get('/api/infra-topology');
   }
 
-  getAllEvents(): Observable<any> {
-    return this.http.get('/api/all-events');
+  getAllEvents(windowSize: number, eventTypeFilters: string): Observable<any> {
+    return this.http.get('/api/all-events', {
+      params: {
+        windowSize: windowSize.toString(),
+        eventTypeFilters: eventTypeFilters,
+      },
+    });
   }
 
   getServices(): Observable<any> {
@@ -39,7 +44,7 @@ export class StatsService {
     return this.http.get('/api/instana-health');
   }
 
-  getWebsiteMetrics(): Observable<any> {
-    return this.http.get<any>('/api/website-metrics');
+  getWebsiteMetrics(windowSize: number): Observable<any> {
+    return this.http.get<any>('/api/website-metrics', { params: { windowSize } });
   }
 }

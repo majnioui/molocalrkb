@@ -4,6 +4,7 @@ import com.local.rkb.service.StatsService;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -28,8 +29,9 @@ public class StatsController {
     }
 
     @GetMapping("/api/all-events")
-    public String getAllEvents() throws JSONException {
-        return statsService.getAllEvents();
+    public String getAllEvents(@RequestParam("windowSize") long windowSize, @RequestParam("eventTypeFilters") String eventTypeFilters)
+        throws JSONException {
+        return statsService.getAllEvents(windowSize, eventTypeFilters);
     }
 
     @GetMapping("/api/services")
@@ -53,7 +55,7 @@ public class StatsController {
     }
 
     @GetMapping("/api/website-metrics")
-    public String getWebsiteMetrics() throws JSONException {
-        return statsService.getWebsiteMetrics();
+    public String getWebsiteMetrics(@RequestParam("windowSize") long windowSize) throws JSONException {
+        return statsService.getWebsiteMetrics(windowSize);
     }
 }
