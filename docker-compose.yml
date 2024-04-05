@@ -7,3 +7,23 @@ services:
       - '8080:8080'
     env_file:
       - .env
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/instanalocaldb
+      SPRING_DATASOURCE_USERNAME: instanauser
+      SPRING_DATASOURCE_PASSWORD: instanapw
+
+  db:
+    image: postgres:16.0
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: instanalocaldb
+      POSTGRES_USER: instanauser
+      POSTGRES_PASSWORD: instanapw
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
