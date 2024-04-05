@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   app:
-    image: majnioui/rkblocalbymo:v1
+    image: majnioui/rkblocalbymo:latest
     build: .
     ports:
       - '8080:8080'
@@ -15,7 +15,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: instanapw
 
   db:
-    image: postgres:16.0
+    image: postgres
     ports:
       - '5432:5432'
     environment:
