@@ -55,25 +55,37 @@ public class StatsService {
 
     @PostConstruct
     public void init() {
+        Instana instanaConfig = InstanaRepository.findTopByOrderByIdDesc();
+        if (instanaConfig == null) {
+            instanaConfig = new Instana();
+        }
+
         // Check if the INSTANA_API_KEY is provided via environment variable, use it if available
         if (!instanaApiKey.isEmpty()) {
             this.apiToken = instanaApiKey;
-        } else {
-            // Retrieve the latest Instana from the database for apiToken
-            Instana instanaApiToken = InstanaRepository.findTopByOrderByIdDesc();
-            if (instanaApiToken != null) {
-                this.apiToken = instanaApiToken.getApitoken();
-            }
+            instanaConfig.setApitoken(instanaApiKey);
+        } else if (instanaConfig.getApitoken() != null) {
+            // Use the API token from the last saved configuration if env variable is not set
+            this.apiToken = instanaConfig.getApitoken();
         }
 
-        // Only find and extract baseUrl if it's not already set via environment variable
-        if (this.baseUrl.isEmpty()) {
-            // Retrieve the latest Instana from the database for baseUrl
-            Instana instanaForBaseUrl = InstanaRepository.findTopByOrderByIdDesc();
-            if (instanaForBaseUrl != null) {
-                this.baseUrl = instanaForBaseUrl.getBaseurl();
-            }
+        if (!this.baseUrl.isEmpty()) {
+            instanaConfig.setBaseurl(this.baseUrl);
+        } else if (instanaConfig.getBaseurl() != null) {
+            // Use the base URL from the last saved configuration if env variable is not set
+            this.baseUrl = instanaConfig.getBaseurl();
         }
+
+        // Save in the repository
+        InstanaRepository.save(instanaConfig);
+    }
+
+    public String getBaseUrl() {
+        Instana instanaForBaseUrl = InstanaRepository.findTopByOrderByIdDesc();
+        if (instanaForBaseUrl != null && instanaForBaseUrl.getBaseurl() != null) {
+            return instanaForBaseUrl.getBaseurl();
+        }
+        return System.getenv("BASE_URL");
     }
 
     // General method for making GET requests
@@ -221,6 +233,24 @@ public class StatsService {
             return "[]";
         }
         return response;
+    }
+
+    // Method to fetch details of each snapshot by ID
+    public JSONArray fetchSnapshotDetails() {
+        String endpoint = "/api/infrastructure-monitoring/snapshots?plugin=host";
+        String response = makeGetRequest(endpoint);
+        JSONObject jsonResponse = new JSONObject(response);
+        JSONArray items = jsonResponse.getJSONArray("items");
+        JSONArray detailedSnapshots = new JSONArray();
+
+        for (int i = 0; i < items.length(); i++) {
+            String snapshotId = items.getJSONObject(i).getString("snapshotId");
+            String snapshotDetailEndpoint = "/api/infrastructure-monitoring/snapshots/" + snapshotId;
+            String snapshotDetails = makeGetRequest(snapshotDetailEndpoint);
+            JSONObject snapshotDetailJson = new JSONObject(snapshotDetails);
+            detailedSnapshots.put(snapshotDetailJson);
+        }
+        return detailedSnapshots;
     }
 
     public String getWebsiteMetrics(long windowSize) {
