@@ -47,4 +47,12 @@ export class StatsService {
   getWebsiteMetrics(windowSize: number): Observable<any> {
     return this.http.get<any>('/api/website-metrics', { params: { windowSize } });
   }
+
+  getSnapshotDetails(): Observable<any> {
+    return this.http.get('/api/snapshot-details');
+  }
+
+  getAppConfig(): Observable<{ baseUrl: string }> {
+    return this.http.get<{ baseUrl: string }>('/api/config');
+  }
 }

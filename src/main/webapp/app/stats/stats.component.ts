@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { StatsService } from '../services/stats.service';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'jhi-stats',
@@ -21,6 +22,8 @@ export class StatsComponent implements OnInit {
   instanaHealth: any;
   servicesData: any[] = [];
   websiteMetrics: any[] = [];
+  snapshotDetails: any[] = [];
+  baseUrl: string = '';
 
   constructor(
     private statsService: StatsService,
@@ -30,12 +33,22 @@ export class StatsComponent implements OnInit {
 
   ngOnInit() {
     this.loadWebsiteMetrics(300000);
+
     this.loadEventsData(300000, 'ISSUE');
+
+    this.statsService.getAppConfig().subscribe(config => {
+      this.baseUrl = config.baseUrl;
+    });
+
     this.statsService.getHostAgentDetails().subscribe(response => {
       if (response && response.items && response.items.length > 0) {
         this.hostAgentDetails = response.items[0];
         this.cdr.detectChanges();
       }
+    });
+
+    this.statsService.getSnapshotDetails().subscribe(data => {
+      this.snapshotDetails = data;
     });
 
     // Fetch installed software versions
@@ -108,6 +121,11 @@ export class StatsComponent implements OnInit {
         return healthStatus;
     }
   }
+  // Host snapshot goto page
+  openHostDetails(snapshotId: string) {
+    const url = `${this.baseUrl?.trim()}/#/table;view=physical;plugin=host/dashboard?snapshotId=${snapshotId}`;
+    window.open(url, '_blank');
+  }
 
   // Websites
   updateMetricsTimeFrame(windowSize: string) {
@@ -128,7 +146,7 @@ export class StatsComponent implements OnInit {
   }
 
   openWebsiteSummary(websiteId: string) {
-    const url = `https://olive-hera0x203o.instana.io/#/websiteMonitoring/website;websiteId=${websiteId}/summary`;
+    const url = `${this.baseUrl?.trim()}/#/websiteMonitoring/website;websiteId=${websiteId}/summary`;
     window.open(url, '_blank');
   }
 
@@ -151,7 +169,7 @@ export class StatsComponent implements OnInit {
   }
 
   openEventLink(eventId: string): void {
-    const url = `https://192.168.100.108/#/events;orderDirection=DESC;orderBy=start;eventId=${eventId}`;
+    const url = `${this.baseUrl?.trim()}/#/events;orderDirection=DESC;orderBy=start;eventId=${eventId}`;
     window.open(url, '_blank');
   }
 }

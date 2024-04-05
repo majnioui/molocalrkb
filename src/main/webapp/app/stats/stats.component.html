@@ -1,3 +1,33 @@
+<p class="section-title">Hosts</p>
+<div class="snapshot-details-container">
+  <div *ngFor="let snapshot of snapshotDetails" class="metric-card">
+    <div class="metric-content">
+      <div class="metric">
+        <span class="metric-title">{{ snapshot['data']['hostname'] || 'N/A' }}</span>
+      </div>
+      <div class="metric">
+        <span class="metric-title">OS</span>
+        <span class="metric-value"
+          >{{ snapshot['data']['os.name'] || 'N/A' }} - {{ snapshot['data']['os.version'] || 'N/A' }} -
+          {{ snapshot['data']['os.arch'] || 'N/A' }}</span
+        >
+      </div>
+      <div class="metric">
+        <span class="metric-title">CPU Count</span>
+        <span class="metric-value">{{ snapshot['data']['cpu.count'] || 'N/A' }}</span>
+      </div>
+      <div class="metric">
+        <span class="metric-title">Memory Total</span>
+        <span class="metric-value">{{ snapshot['data']['memory.total'] / (1024 * 1024 * 1024) | number: '1.2-2' || 'N/A' }} GB</span>
+      </div>
+      <div class="metric">
+        <button (click)="openHostDetails(snapshot.snapshotId)" class="goto-page-btn">→</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noSnapshots><p>No snapshot details found.</p></ng-template>
+
 <!-- Website Metrics Section -->
 <p class="section-title">Websites</p>
 <div class="timeframe-selector">
