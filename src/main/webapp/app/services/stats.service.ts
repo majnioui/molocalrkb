@@ -9,19 +9,19 @@ export class StatsService {
   constructor(private http: HttpClient) {}
 
   getHostAgentDetails(): Observable<any> {
-    return this.http.get('/api/host-agent');
+    return this.http.get('/api/hostAgent');
   }
 
   getInstalledSoftware(): Observable<any> {
-    return this.http.get('/api/installed-software');
+    return this.http.get('/api/installedSoftware');
   }
 
   getInfrastructureTopology(): Observable<any> {
-    return this.http.get('/api/infra-topology');
+    return this.http.get('/api/infraTopology');
   }
 
   getAllEvents(windowSize: number, eventTypeFilters: string): Observable<any> {
-    return this.http.get('/api/all-events', {
+    return this.http.get('/api/allEvents', {
       params: {
         windowSize: windowSize.toString(),
         eventTypeFilters: eventTypeFilters,
@@ -34,22 +34,22 @@ export class StatsService {
   }
 
   getAgentRelaltedIssues(): Observable<any> {
-    return this.http.get('/api/agent-related-issues');
+    return this.http.get('/api/agentRelatedIssues');
   }
 
   getInstanaVersion(): Observable<any> {
-    return this.http.get('/api/instana-version');
+    return this.http.get('/api/instanaVersion');
   }
   getInstanaHealth(): Observable<any> {
-    return this.http.get('/api/instana-health');
+    return this.http.get('/api/instanaHealth');
   }
 
   getWebsiteMetrics(windowSize: number): Observable<any> {
-    return this.http.get<any>('/api/website-metrics', { params: { windowSize } });
+    return this.http.get<any>('/api/websiteMetrics', { params: { windowSize } });
   }
 
   getSnapshotDetails(): Observable<any> {
-    return this.http.get('/api/snapshot-details');
+    return this.http.get('/api/snapshotDetails');
   }
 
   getAppConfig(): Observable<{ baseUrl: string }> {
