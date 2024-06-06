@@ -17,22 +17,22 @@ public class StatsController {
     @Autowired
     private StatsService statsService;
 
-    @GetMapping("/api/host-agent")
+    @GetMapping("/api/hostAgent")
     public String getHostAgentDetails() throws JSONException {
         return statsService.getHostAgentDetails();
     }
 
-    @GetMapping("/api/installed-software")
+    @GetMapping("/api/installedSoftware")
     public String getInstalledSoftware() throws JSONException {
         return statsService.getInstalledSoftware();
     }
 
-    @GetMapping("/api/infra-topology")
+    @GetMapping("/api/infraTopology")
     public String getInfrastructureTopology() throws JSONException {
         return statsService.getInfrastructureTopology();
     }
 
-    @GetMapping("/api/all-events")
+    @GetMapping("/api/allEvents")
     public String getAllEvents(@RequestParam("windowSize") long windowSize, @RequestParam("eventTypeFilters") String eventTypeFilters)
         throws JSONException {
         return statsService.getAllEvents(windowSize, eventTypeFilters);
@@ -43,27 +43,27 @@ public class StatsController {
         return statsService.getServices();
     }
 
-    @GetMapping("/api/agent-related-issues")
+    @GetMapping("/api/agentRelatedIssues")
     public String getAgentRelaltedIssues() throws JSONException {
         return statsService.getAgentRelaltedIssues();
     }
 
-    @GetMapping("/api/instana-version")
+    @GetMapping("/api/instanaVersion")
     public String getInstanaVersion() throws JSONException {
         return statsService.getInstanaVersion();
     }
 
-    @GetMapping("/api/instana-health")
+    @GetMapping("/api/instanaHealth")
     public String getInstanaHealth() throws JSONException {
         return statsService.getInstanaHealth();
     }
 
-    @GetMapping("/api/website-metrics")
+    @GetMapping("/api/websiteMetrics")
     public String getWebsiteMetrics(@RequestParam("windowSize") long windowSize) throws JSONException {
         return statsService.getWebsiteMetrics(windowSize);
     }
 
-    @GetMapping("/api/snapshot-details")
+    @GetMapping("/api/snapshotDetails")
     public ResponseEntity<String> fetchSnapshotDetails() throws JSONException {
         JSONArray detailedSnapshots = statsService.fetchSnapshotDetails();
         return ResponseEntity.ok(detailedSnapshots.toString());
